@@ -22,9 +22,7 @@ AppAsset::register($this);
             <?= $this->render('main-header.php') ?>
             <?= $this->render('main-left.php') ?>
             <div class="content-wrapper">
-                <section class="content">
-                    <?= $content ?>
-                </section>
+                <section class="content"><?= $content ?></section>
             </div>
             <?= $this->render('main-footer.php') ?>
         </div>

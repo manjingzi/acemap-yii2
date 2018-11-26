@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-11-26 11:25:24
+Date: 2018-11-26 23:33:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,40 +21,64 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `jj_admin`;
 CREATE TABLE `jj_admin` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT '自动登录key',
-  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '加密密码',
-  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '重置密码token',
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '邮箱',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '10' COMMENT '用户状态',
+  `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL COMMENT '加密密码',
+  `password_reset_token` varchar(43) COLLATE utf8_unicode_ci NOT NULL COMMENT '重置密码token',
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '邮箱',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态 1正常 2无效',
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of jj_admin
 -- ----------------------------
-INSERT INTO `jj_admin` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z', '$2y$13$iSpALCRx.JgsQLsLSC3aIOLFcMmds5cUSY.DrR5ZfVBs/3HaqYcwe', '', '19744244@qq.com', '1', '1542901437', '1542901437');
+INSERT INTO `jj_admin` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z', '$2y$13$BpsDc2MrRD/tXg1LuqhG2uATx09rj6XXYUKOQDjtj9dDCWqIPjwjS', '', '19744244@qq.com', '1', '1542901437', '1542901437');
 
 -- ----------------------------
--- Table structure for `jj_admin_log`
+-- Table structure for `jj_admin_login_log`
 -- ----------------------------
-DROP TABLE IF EXISTS `jj_admin_log`;
-CREATE TABLE `jj_admin_log` (
+DROP TABLE IF EXISTS `jj_admin_login_log`;
+CREATE TABLE `jj_admin_login_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理员用户ID',
-  `route` varchar(255) NOT NULL DEFAULT '' COMMENT '操作路由',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '操作描述',
+  `login_name` varchar(20) NOT NULL DEFAULT '' COMMENT '登录名',
+  `login_password` varchar(20) NOT NULL DEFAULT '' COMMENT '登录密码',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登录状态 1成功 2失败',
+  `login_ip` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录IP',
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员登录日志表';
 
 -- ----------------------------
--- Records of jj_admin_log
+-- Records of jj_admin_login_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `jj_admin_operation_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `jj_admin_operation_log`;
+CREATE TABLE `jj_admin_operation_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `username` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
+  `route` varchar(255) NOT NULL DEFAULT '' COMMENT '路由地址',
+  `data_before` text COMMENT '更新或删除之前的数据',
+  `data_add` text COMMENT '新增的数据',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '操作类型 1新增 2更新 3删除',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 1成功 2失败',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `object_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '操作的对象ID',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
+
+-- ----------------------------
+-- Records of jj_admin_operation_log
 -- ----------------------------
 
 -- ----------------------------
@@ -434,26 +458,44 @@ CREATE TABLE `jj_site_menu` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `jj_system_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `jj_system_log`;
+CREATE TABLE `jj_system_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `username` varchar(50) NOT NULL DEFAULT '' COMMENT '用户名',
+  `data` text COMMENT '日志内容',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `login_ip` int(11) NOT NULL DEFAULT '0' COMMENT '最后登录IP',
+  `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统日志表';
+
+-- ----------------------------
+-- Records of jj_system_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `jj_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `jj_user`;
 CREATE TABLE `jj_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户名',
   `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT '自动登录key',
-  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '加密密码',
-  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '重置密码token',
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '邮箱',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '10' COMMENT '用户状态',
+  `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL COMMENT '加密密码',
+  `password_reset_token` varchar(43) COLLATE utf8_unicode_ci NOT NULL COMMENT '重置密码token',
+  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL COMMENT '邮箱',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '用户状态 1正常 2无效',
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of jj_user
 -- ----------------------------
-INSERT INTO `jj_user` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z', '$2y$13$iSpALCRx.JgsQLsLSC3aIOLFcMmds5cUSY.DrR5ZfVBs/3HaqYcwe', '', '19744244@qq.com', '1', '1542901437', '1542901437');
+INSERT INTO `jj_user` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z', '$2y$13$BpsDc2MrRD/tXg1LuqhG2uATx09rj6XXYUKOQDjtj9dDCWqIPjwjS', '', '19744244@qq.com', '1', '1542901437', '1542901437');

@@ -20,11 +20,11 @@ Pjax::begin();
         ]);
         ?>
         <div class="form-group has-feedback">
-            <?= $form->field($model, 'username', ['inputOptions' => ['placeholder' => Yii::t('app', 'Please enter your username'), 'class' => 'form-control']])->textInput(['autofocus' => true])->label(false) ?>
+            <?= $form->field($model, 'username', ['inputOptions' => ['placeholder' => Yii::t('app', 'Please enter your username'), 'class' => 'form-control']])->textInput(['autofocus' => true, 'maxlength' => true])->label(false) ?>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-            <?= $form->field($model, 'password', ['inputOptions' => ['placeholder' => Yii::t('app', 'Please enter your password'), 'class' => 'form-control']])->passwordInput()->label(false) ?>
+            <?= $form->field($model, 'password', ['inputOptions' => ['placeholder' => Yii::t('app', 'Please enter your password'), 'class' => 'form-control']])->passwordInput(['maxlength' => true])->label(false) ?>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
@@ -49,9 +49,8 @@ Pjax::begin();
                 ?>
             </p>
         </div>
+        <?php ActiveForm::end(); ?>
     </div>
-    <?php ActiveForm::end(); ?>
 </div>
 <?php
 Pjax::end();
-?>

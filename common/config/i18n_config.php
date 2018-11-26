@@ -8,7 +8,7 @@ return [
             'fileMap' => [
                 'app' => 'app.php',
                 'app/app/admin' => 'admin.php',
-                'app/app/index' => 'index.php',
+                'app/app/site' => 'site.php',
             ],
         ],
     ],

@@ -2,7 +2,7 @@
 
 return [
     //公共头部
-    'Back' => '返回首页',
+    'Back to home page' => '返回首页',
     'Guest' => '游客',
     'Switch language' => '切换语言',
     'en-US' => 'English',
@@ -17,9 +17,17 @@ return [
     'Username' => '用户名',
     'Password' => '密码',
     'Remember me' => '记住我',
+    'Email' => '电子邮箱',
+    'Status' => '状态',
+    'Created At' => '创建时间',
+    'Updated At' => '更新时间',
     'Please enter your username' => '请输入你的用户名',
     'Please enter your password' => '请输入你的密码',
+    //提交结果
     'Username or password is incorrect' => '用户名或密码不正确',
+    'New data validation failed' => '新增数据验证失败',
+    'Please check if the model name in the template is correct' => '请检查模板中的模型名称是否正确',
+    'The account is locked. Please contact the administrator' => '账户已锁定，请联系管理员',
     //列表
     'Home' => '首页',
     'Normal' => '正常',
@@ -29,9 +37,10 @@ return [
     'List' => '列表',
     'Reset' => '重置',
     'View' => '查看',
-    'Create' => '新增',
-    'Update' => '编辑',
+    'Create' => '创建',
+    'Update' => '更新',
     'Delete' => '删除',
+    'Submit' => '提交',
     'Operation' => '操作',
     'Select page number' => '选择页码',
     'Selection status' => '选择状态',

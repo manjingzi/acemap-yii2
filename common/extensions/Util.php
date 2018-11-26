@@ -412,4 +412,22 @@ class Util {
         return ((float) $usec + (float) $sec);
     }
 
+    /**
+     * 字符串IP转数字
+     * @param type $ip
+     * @return type
+     */
+    public static function itoa($ip = '') {
+        return sprintf('%u', ip2long($ip));
+    }
+
+    /**
+     * 数字转字符串IP
+     * @param type $addr
+     * @return type
+     */
+    public static function atoi($addr = 0) {
+        return long2ip($addr);
+    }
+
 }

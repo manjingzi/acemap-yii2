@@ -5,6 +5,8 @@ namespace backend\controllers;
 use Yii;
 use yii\web\UnauthorizedHttpException;
 use yii\web\Controller;
+use common\models\BaseModel;
+use common\models\AdminOperationLog;
 
 class BaseController extends Controller {
 
@@ -32,6 +34,60 @@ class BaseController extends Controller {
 
     protected function setSuccess($msg = null) {
         Yii::$app->getSession()->setFlash('success', $msg ?: Yii::t('app', 'Successful operation result'));
+    }
+
+    /**
+     * 公共模块创建
+     * @param type $model 模型
+     * @param type $data 自定义数据格式 [模型名称=>数据数组] 如: [Ad => ['title'=>'test','status'=>1]] 默认是接收POST数据
+     * @return boolean
+     */
+    protected function commonCreate($model, $data = null) {
+        if (is_null($data)) {
+            $data = Yii::$app->request->post();
+        }
+        if ($model->load($data)) {
+            if (array_key_exists('created_at', $model->attributes)) {
+                $model->created_at = time();
+            }
+
+            if ($model->validate()) {
+                $result = $model->save();
+                $log['status'] = $result ? BaseModel::STATUS_ACTIVE : BaseModel::STATUS_DELETED;
+                $log['object_id'] = $model->id;
+                $log['data_add'] = json_encode($model->attributes, JSON_UNESCAPED_UNICODE);
+                $log['data_before'] = json_encode(null, JSON_UNESCAPED_UNICODE);
+
+                $this->adminLog($log);
+
+                if ($result) {
+                    $this->setSuccess();
+                    return true;
+                } else {
+                    $this->setError(null, $model);
+                    return false;
+                }
+            } else {
+                $this->setError(Yii::t('app', 'New data validation failed'), $model);
+                return false;
+            }
+        } else {
+            $this->setError(null, Yii::t('app', 'Please check if the model name in the template is correct'));
+            return false;
+        }
+    }
+
+    /**
+     *  加入操作日志
+     * @param type $type 操作类型 1新增 2更新 3删除
+     * @param type $status 操作结果状态 1成功 2失败
+     * @param type $id 操作对象的ID
+     * @param type $data_before 在本次更新或删除之前的数据
+     * @param type $data_add 本次新增或更新的数据
+     */
+    protected function adminLog($data) {
+        $data['route'] = Yii::$app->controller->getRoute();
+        AdminOperationLog::add($data);
     }
 
     protected static function jsonEcho($array) {

@@ -106,4 +106,16 @@ class BaseModel extends \yii\db\ActiveRecord {
         return $default_value;
     }
 
+    public static function getCache($name) {
+        return Yii::$app->cache->get($name);
+    }
+
+    public static function setCache($name, $data, $cache_time = 0) {
+        return Yii::$app->cache->set($name, $data, $cache_time);
+    }
+
+    public static function delCache($name) {
+        return Yii::$app->cache->delete($name);
+    }
+
 }

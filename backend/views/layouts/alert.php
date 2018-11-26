@@ -7,13 +7,13 @@ use backend\widgets\JsBlock;
     ?>
     <div class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <i class="icon fa fa-check"></i> <?= Yii::$app->getSession()->getFlash('success') ?>
+        <i class="icon fa fa-check-circle"></i> <?= Yii::$app->getSession()->getFlash('success') ?>
     </div>
 <?php } ?>
 <?php if (Yii::$app->getSession()->hasFlash('error')) { ?>
     <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <i class="icon fa fa-check"></i> <?= Yii::$app->getSession()->getFlash('error') ?>
+        <i class="icon fa fa-times-circle"></i> <?= Yii::$app->getSession()->getFlash('error') ?>
     </div>
 <?php } ?>
 <?php JsBlock::begin() ?>

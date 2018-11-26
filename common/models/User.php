@@ -15,7 +15,7 @@ use yii\base\NotSupportedException;
  * @property string $password_hash 加密密码
  * @property string $password_reset_token 重置密码token
  * @property string $email 邮箱
- * @property int $status 用户状态
+ * @property int $status 用户状态 1正常 2无效
  * @property string $created_at 创建时间
  * @property string $updated_at 更新时间
  */
@@ -33,13 +33,17 @@ class User extends BaseModel implements IdentityInterface {
      */
     public function rules() {
         return [
-            [['username', 'auth_key', 'password_hash', 'email'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['username', 'password_hash', 'email'], 'required'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['username'], 'string', 'length' => [2, 20]],
+            [['password_hash'], 'string', 'length' => [6, 20]],
             [['auth_key'], 'string', 'max' => 32],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
-            [['password_reset_token'], 'unique'],
+            [['password_reset_token'], 'string', 'max' => 43],
+            [['email'], 'string', 'max' => 50],
+            [['email'], 'email'],
+            [['username', 'email', 'password_reset_token'], 'unique'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
 
@@ -48,15 +52,15 @@ class User extends BaseModel implements IdentityInterface {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('app/user', 'ID'),
-            'username' => Yii::t('app/user', 'Username'),
-            'auth_key' => Yii::t('app/user', 'Auth Key'),
-            'password_hash' => Yii::t('app/user', 'Password Hash'),
-            'password_reset_token' => Yii::t('app/user', 'Password Reset Token'),
-            'email' => Yii::t('app/user', 'Email'),
-            'status' => Yii::t('app/user', 'Status'),
-            'created_at' => Yii::t('app/user', 'Created At'),
-            'updated_at' => Yii::t('app/user', 'Updated At'),
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Username'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
+            'password_hash' => Yii::t('app', 'Password'),
+            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'email' => Yii::t('app', 'Email'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -102,6 +106,10 @@ class User extends BaseModel implements IdentityInterface {
         $this->password_reset_token = null;
     }
 
+    public static function existUsername($username) {
+        return static::findOne(['username' => $username]);
+    }
+
     public static function findByUsername($username) {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
@@ -122,6 +130,16 @@ class User extends BaseModel implements IdentityInterface {
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['email_reset_token_expire'];
         return $timestamp + $expire >= time();
+    }
+
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            $this->setPassword($this->password_hash);
+            $this->generateAuthKey();
+            $this->generatePasswordResetToken();
+            return true;
+        }
+        return false;
     }
 
 }

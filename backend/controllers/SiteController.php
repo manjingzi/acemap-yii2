@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use common\extensions\Util;
 use backend\forms\LoginForm;
+use backend\forms\ChangePasswordForm;
 
 class SiteController extends BaseController {
 
@@ -20,7 +21,7 @@ class SiteController extends BaseController {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index', 'logout', 'clear-cache'],
+                        'actions' => ['index', 'logout', 'clear-cache', 'change-password'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -68,6 +69,20 @@ class SiteController extends BaseController {
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionChangePassword() {
+        $model = new ChangePasswordForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->changePassword()) {
+                $this->setSuccess();
+                return $this->refresh();
+            } else {
+                $this->setError(null, $model);
+            }
+        }
+
+        return $this->render('change-password', ['model' => $model]);
     }
 
     public function actionError() {

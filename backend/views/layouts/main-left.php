@@ -20,7 +20,7 @@ use yii\helpers\Url;
             foreach ($array as $lang) {
                 if ($lang !== Yii::$app->session->get('lang')) {
                     ?>
-                    <li><a href="<?= Url::to(['/site/lang', 'lang' => $lang]) ?>"><i class="fa fa-circle-o text-red"></i> <span><?= Yii::t('app', $lang) ?></span></a></li>
+                    <li><a href="<?= Url::to(['/site/lang', 'lang' => $lang]) ?>"><i class="fa fa-globe text-green"></i> <span><?= Yii::t('app', $lang) ?></span></a></li>
                     <?php
                 }
             }

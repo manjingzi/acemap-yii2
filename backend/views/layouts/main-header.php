@@ -6,7 +6,7 @@ use backend\assets\AppAsset;
 $bundle = AppAsset::register($this);
 ?>
 <header class="main-header">
-    <a href="<?= Url::to(['site/index']); ?>" class="logo">
+    <a href="<?= Url::to(['/site/index']); ?>" class="logo">
         <span class="logo-mini">Ace</span>
         <span class="logo-lg"><b><?= Yii::$app->params['site_name_' . Yii::$app->session->get('lang')] ?></b></span>
     </a>
@@ -15,7 +15,7 @@ $bundle = AppAsset::register($this);
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <?php if (isset(Yii::$app->params['site_url']) && Yii::$app->params['site_url']) { ?>
-                    <li><a href="<?= Yii::$app->params['site_url'] ?>" target="_blank"><i class="fa fa-home"></i> <?= Yii::t('app', 'Back') ?></a></li>
+                    <li><a href="<?= Yii::$app->params['site_url'] ?>" target="_blank"><i class="fa fa-home"></i> <?= Yii::t('app', 'Back to home page') ?></a></li>
                 <?php } ?>
 
                 <li class="dropdown user user-menu">
@@ -32,7 +32,7 @@ $bundle = AppAsset::register($this);
                             </p>
                         </li>
                         <li class="user-body">
-                            <a href="<?= Url::to(['/site/my-password']) ?>" class="btn btn-default btn-block btn-flat"><i class="fa fa-lock"></i> <?= Yii::t('app', 'Change password') ?></a>
+                            <a href="<?= Url::to(['/site/change-password']) ?>" class="btn btn-default btn-block btn-flat"><i class="fa fa-lock"></i> <?= Yii::t('app', 'Change password') ?></a>
                             <a href="<?= Url::to(['/site/clear-cache']); ?>" class="btn btn-default btn-block btn-flat"><i class="fa fa-trash"></i> <?= Yii::t('app', 'Clear cache') ?></a>
                             <a href="<?= Url::to(['/site/logout']) ?>" class="btn btn-default btn-block btn-flat" data-method="post"><i class="fa fa-power-off"></i> <?= Yii::t('app', 'Sign out') ?></a>
                         </li>
