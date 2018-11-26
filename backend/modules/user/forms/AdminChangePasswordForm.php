@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\forms;
+namespace backend\modules\user\forms;
 
 use Yii;
 use yii\base\Model;
@@ -10,13 +10,15 @@ use yii\web\NotFoundHttpException;
 class AdminChangePasswordForm extends Model {
 
     public $user_id;
+    public $username;
     public $newPassword;
     public $confirmPassword;
     private $_user;
 
-    public function init($id) {
-        parent::init();
+    public function __construct($id) {
+        parent::__construct();
         $this->user_id = $id;
+        $this->username = $this->getUser()->username;
     }
 
     public function rules() {

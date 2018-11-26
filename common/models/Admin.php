@@ -134,9 +134,11 @@ class Admin extends BaseModel implements IdentityInterface {
 
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
-            $this->setPassword($this->password_hash);
-            $this->generateAuthKey();
-            $this->generatePasswordResetToken();
+            if ($this->isNewRecord) {
+                $this->setPassword($this->password_hash);
+                $this->generateAuthKey();
+                $this->generatePasswordResetToken();
+            }
             return true;
         }
         return false;
