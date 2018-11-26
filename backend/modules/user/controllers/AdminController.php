@@ -7,6 +7,7 @@ use yii\web\NotFoundHttpException;
 use common\models\Admin;
 use backend\controllers\BaseController;
 use backend\modules\user\forms\AdminSearch;
+use backend\forms\AdminChangePasswordForm;
 
 class AdminController extends BaseController {
 
@@ -39,18 +40,18 @@ class AdminController extends BaseController {
         return $this->render('update', ['model' => $model]);
     }
 
-    public function actionUpdatePassword($id) {
-        $model = $this->findModel($id);
+    public function actionChangePassword($id) {
+        $model = new AdminChangePasswordForm($id);
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->updateLoginPassword()) {
-                $this->flashSuccess();
+            if ($model->changePassword()) {
+                $this->setSuccess();
                 return $this->refresh();
             } else {
-                $this->flashError($model);
+                $this->setError($model);
             }
         }
 
-        return $this->render('update-password', ['model' => $model]);
+        return $this->render('change-password', ['model' => $model]);
     }
 
     public function actionDelete($id) {

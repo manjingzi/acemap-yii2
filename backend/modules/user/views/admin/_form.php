@@ -1,14 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 use common\models\Admin;
 use backend\widgets\ActiveForm;
 
 if ($model->isNewRecord) {
     $model->status = Admin::STATUS_ACTIVE;
 }
-Pjax::begin();
 ?>
 <div class="box">
     <?php $form = ActiveForm::begin(); ?>
@@ -38,5 +36,3 @@ Pjax::begin();
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-<?php
-Pjax::end();

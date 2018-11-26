@@ -2,23 +2,14 @@
 
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
-use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', 'Administrator login');
-Pjax::begin();
 ?>
 <div class="login-box">
     <div class="login-logo"><b><?= Yii::t('app', 'Administrator login') ?></b></div>
     <div class="login-box-body">
         <p class="login-box-msg"><?= Yii::t('app', 'Sign in to start your session') ?></p>
-        <?php
-        $form = ActiveForm::begin([
-                    'id' => 'login-form',
-                    'options' => [
-                        'data' => ['pjax' => true]
-                    ],
-        ]);
-        ?>
+        <?php $form = ActiveForm::begin(); ?>
         <div class="form-group has-feedback">
             <?= $form->field($model, 'username', ['inputOptions' => ['placeholder' => Yii::t('app', 'Please enter your username'), 'class' => 'form-control']])->textInput(['autofocus' => true, 'maxlength' => true])->label(false) ?>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -52,5 +43,3 @@ Pjax::begin();
         <?php ActiveForm::end(); ?>
     </div>
 </div>
-<?php
-Pjax::end();

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use backend\widgets\ActiveForm;
 
 $this->title = Yii::t('app', 'Change password');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user list'), 'url' => ['index']];
 ?>
 <div class="box">
     <?php $form = ActiveForm::begin(); ?>
@@ -14,7 +15,6 @@ $this->title = Yii::t('app', 'Change password');
                 <p class="form-control-static"><?= Yii::$app->user->identity->username ?></p>
             </div>
         </div>
-        <?= $form->field($model, 'oldPassword')->passwordInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'newPassword')->passwordInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'confirmPassword')->passwordInput(['maxlength' => true]) ?>
     </div>

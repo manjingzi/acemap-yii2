@@ -11,5 +11,10 @@ return [
                 'app/app/site' => 'site.php',
             ],
         ],
+        'yii' => [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => '@common/messages'
+        ],
     ],
 ];

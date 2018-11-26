@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
-use yii\web\View;
 use common\models\Admin;
 use common\extensions\Util;
 use backend\widgets\GridView;
@@ -72,7 +71,7 @@ $keyword = Admin::getSearchParams('keyword');
                         [
                             'class' => 'backend\widgets\ActionColumn',
                             'header' => Yii::t('app', 'Operation'),
-                            'template' => '{view} {delete}',
+                            'template' => '{view} {update} {delete}',
                         ],
                     ],
                 ]);
@@ -83,11 +82,3 @@ $keyword = Admin::getSearchParams('keyword');
     </div>
 </div>
 <script>
-<?php $this->beginBlock('js') ?>
-    $(function () {
-
-    });
-<?php $this->endBlock() ?>
-</script>
-<?php
-$this->registerJs($this->blocks['js'], View::POS_LOAD);
