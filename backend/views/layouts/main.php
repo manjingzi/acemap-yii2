@@ -19,10 +19,10 @@ AppAsset::register($this);
     <body class="hold-transition skin-blue sidebar-mini">
         <?php $this->beginBody() ?>
         <div class="wrapper">
-            <?= $this->render('main-header.php') ?>
-            <?= $this->render('main-left.php') ?>
-            <?= $this->render('main-content.php', ['content' => $content]) ?>
-            <?= $this->render('main-footer.php') ?>
+            <?= $this->render('main-header') ?>
+            <?= $this->render('main-left') ?>
+            <?= $this->render('main-content', ['content' => $content]) ?>
+            <?= $this->render('main-footer') ?>
         </div>
         <?php $this->endBody() ?>
     </body>
