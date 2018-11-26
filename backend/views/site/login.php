@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\Pjax;
 
@@ -32,8 +33,24 @@ Pjax::begin();
             </div>
             <div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat"><?= Yii::t('app', 'Sign in') ?></button></div>
         </div>
-        <?php ActiveForm::end(); ?>
+        <div class="social-auth-links">
+            <p>
+                <?= Yii::t('app', 'Switch language') ?> ->  
+                <?php
+                $array = Yii::$app->params['site_lang'];
+                //不显示当前语言
+                foreach ($array as $lang) {
+                    if ($lang !== Yii::$app->session->get('lang')) {
+                        ?>
+                        <a href="<?= Url::to(['/site/lang', 'lang' => $lang]) ?>"> <?= Yii::t('app', $lang) ?></a> 
+                        <?php
+                    }
+                }
+                ?>
+            </p>
+        </div>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
 <?php
 Pjax::end();
