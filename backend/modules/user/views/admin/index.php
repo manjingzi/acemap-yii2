@@ -81,4 +81,3 @@ $keyword = Admin::getSearchParams('keyword');
         </div>
     </div>
 </div>
-<script>
