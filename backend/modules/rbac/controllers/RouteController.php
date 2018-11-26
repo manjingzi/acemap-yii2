@@ -3,8 +3,8 @@
 namespace backend\modules\rbac\controllers;
 
 use Yii;
-use backend\controllers\BaseBackendController;
+use backend\controllers\BaseController;
 
-class RouteController extends BaseBackendController {
+class RouteController extends BaseController {
     
 }

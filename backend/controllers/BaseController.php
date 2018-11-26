@@ -19,14 +19,6 @@ class BaseController extends Controller {
         }
     }
 
-    public function actions() {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
-
     protected static function jsonEcho($array) {
         echo json_encode($array);
         exit;

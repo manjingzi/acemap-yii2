@@ -16,9 +16,18 @@ AppAsset::register($this);
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body class="hold-transition login-page">
+    <body class="hold-transition skin-blue sidebar-mini">
         <?php $this->beginBody() ?>
-        <?= $content ?>
+        <div class="wrapper">
+            <?= $this->render('main-header.php') ?>
+            <?= $this->render('main-left.php') ?>
+            <div class="content-wrapper">
+                <section class="content">
+                    <?= $content ?>
+                </section>
+            </div>
+            <?= $this->render('main-footer.php') ?>
+        </div>
         <?php $this->endBody() ?>
     </body>
 </html>

@@ -1,14 +1,10 @@
 <?php
-
-use yii\web\ErrorHandler;
-
-$message = ErrorHandler::convertExceptionToString($exception);
-$this->title = $message;
+$this->title = Yii::t('app/error', 'Oops! Something went wrong.');
 ?>
 <div class="error-page">
-    <h2 class="headline text-red"><?= $exception->statusCode ?></h2>
+    <h2 class="headline text-red">500</h2>
     <div class="error-content">
-        <h3><i class="fa fa-warning text-red"></i> <?= $message ?></h3>
+        <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
         <p><?= Yii::t('app/error', 'We will work on fixing that right away. you may try using the search form.'); ?></p>
         <form class="search-form">
             <div class="input-group">

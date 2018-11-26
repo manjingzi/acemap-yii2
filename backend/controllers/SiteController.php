@@ -62,4 +62,16 @@ class SiteController extends BaseController {
         return $this->goHome();
     }
 
+    public function actionError() {
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            $this->layout = 'error';
+            if (in_array($exception->statusCode, [404, 500])) {
+                return $this->render($exception->statusCode, ['exception' => $exception]);
+            } else {
+                return $this->render('error', ['exception' => $exception]);
+            }
+        }
+    }
+
 }
