@@ -2,14 +2,13 @@
 
 return [
     'translations' => [
-        '*' => [
+        'app*' => [
             'class' => 'yii\i18n\PhpMessageSource',
             'basePath' => '@common/messages',
-            'sourceLanguage' => 'en-US',
             'fileMap' => [
                 'app' => 'app.php',
-                'app/admin' => 'admin.php',
-                'app/index' => 'pages/index.php',
+                'app/app/admin' => 'admin.php',
+                'app/app/index' => 'index.php',
             ],
         ],
     ],

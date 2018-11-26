@@ -2,6 +2,7 @@
 
 namespace backend\widgets;
 
+use Yii;
 use yii\helpers\Html;
 use yii\grid\ActionColumn as YiiActionColumn;
 
@@ -13,32 +14,32 @@ class ActionColumn extends YiiActionColumn {
     }
 
     protected function initDefaultButtons() {
-        $this->initDefaultButton('view', 'eye');
-        $this->initDefaultButton('update', 'edit');
-        $this->initDefaultButton('delete', 'trash', [
-            'data-confirm' => '确认要删除操作吗？',
+        $this->_initDefaultButton('view', 'eye', 'info');
+        $this->_initDefaultButton('update', 'edit', 'primary');
+        $this->_initDefaultButton('delete', 'trash', 'warning', [
+            'data-confirm' => Yii::t('app', 'Are you sure you want to delete the operation?'),
             'data-method' => 'post',
         ]);
     }
 
-    protected function initDefaultButton($name, $iconName, $additionalOptions = []) {
+    protected function _initDefaultButton($name, $iconName, $color, $additionalOptions = []) {
         if (!isset($this->buttons[$name]) && strpos($this->template, '{' . $name . '}') !== false) {
-            $this->buttons[$name] = function ($url, $model, $key) use ($name, $iconName, $additionalOptions) {
+            $this->buttons[$name] = function ($url) use ($name, $iconName, $color, $additionalOptions) {
                 switch ($name) {
                     case 'view':
-                        $title = '查看';
+                        $title = Yii::t('app', 'View');
                         break;
                     case 'update':
-                        $title = '编辑';
+                        $title = Yii::t('app', 'Update');
                         break;
                     case 'delete':
-                        $title = '删除';
+                        $title = Yii::t('app', 'Delete');
                         break;
                     default:
                         $title = ucfirst($name);
                 }
-                $options = array_merge(['title' => $title, 'aria-label' => $title, 'data-pjax' => '0'], $additionalOptions, $this->buttonOptions);
-                $icon = Html::tag('span', '', ['class' => "fa fa-$iconName"]);
+                $options = array_merge(['title' => $title, 'class' => 'btn btn-sm btn-' . $color], $additionalOptions, $this->buttonOptions);
+                $icon = Html::tag('span', '', ['class' => 'fa fa-' . $iconName]);
                 return Html::a($icon, $url, $options);
             };
         }

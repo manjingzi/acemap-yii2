@@ -8,7 +8,7 @@ $bundle = AppAsset::register($this);
 <header class="main-header">
     <a href="<?= Url::to(['site/index']); ?>" class="logo">
         <span class="logo-mini">JJ</span>
-        <span class="logo-lg"><b><?= Yii::$app->params['site_name_' . Yii::$app->session->get('language')] ?></b></span>
+        <span class="logo-lg"><b><?= Yii::$app->params['site_name_' . Yii::$app->session->get('lang')] ?></b></span>
     </a>
     <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"><span class="sr-only">Toggle navigation</span></a>
@@ -25,10 +25,16 @@ $bundle = AppAsset::register($this);
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <?php
-                        foreach (Yii::$app->params['site_lang'] as $lang) {
-                            ?>
-                            <li><a href="<?= Url::to(['/site/lang', 'lang' => $lang]) ?>"> <?= Yii::t('app', $lang) ?></a></li>
-                        <?php } ?>
+                        $array = Yii::$app->params['site_lang'];
+                        //不显示当前语言
+                        foreach ($array as $lang) {
+                            if ($lang !== Yii::$app->session->get('lang')) {
+                                ?>
+                                <li><a href="<?= Url::to(['/site/lang', 'lang' => $lang]) ?>"> <?= Yii::t('app', $lang) ?></a></li>
+                                <?php
+                            }
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li class="dropdown">

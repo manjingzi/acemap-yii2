@@ -48,15 +48,15 @@ class User extends BaseModel implements IdentityInterface {
      */
     public function attributeLabels() {
         return [
-            'id' => '自增ID',
-            'username' => '用户名',
-            'auth_key' => '自动登录key',
-            'password_hash' => '加密密码',
-            'password_reset_token' => '重置密码token',
-            'email' => '邮箱',
-            'status' => '用户状态',
-            'created_at' => '创建时间',
-            'updated_at' => '更新时间',
+            'id' => Yii::t('app/user', 'ID'),
+            'username' => Yii::t('app/user', 'Username'),
+            'auth_key' => Yii::t('app/user', 'Auth Key'),
+            'password_hash' => Yii::t('app/user', 'Password Hash'),
+            'password_reset_token' => Yii::t('app/user', 'Password Reset Token'),
+            'email' => Yii::t('app/user', 'Email'),
+            'status' => Yii::t('app/user', 'Status'),
+            'created_at' => Yii::t('app/user', 'Created At'),
+            'updated_at' => Yii::t('app/user', 'Updated At'),
         ];
     }
 

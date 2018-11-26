@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'System user management' => '系统用户管理',
+    'Website user management' => '网站用户管理',
     'Username' => '用户名',
     'Email' => '电子邮箱',
     'Status' => '状态',

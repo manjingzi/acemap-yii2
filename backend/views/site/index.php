@@ -1,4 +1,4 @@
 <?php
 
-$this->title = Yii::t('index', 'Welcome');
+$this->title = Yii::t('app/index', 'Welcome');
 ?>

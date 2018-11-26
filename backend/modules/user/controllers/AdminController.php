@@ -3,10 +3,10 @@
 namespace backend\modules\user\controllers;
 
 use Yii;
-use backend\controllers\BaseBackendController;
+use backend\controllers\BaseController;
 use backend\modules\user\forms\AdminSearch;
 
-class AdminController extends BaseBackendController {
+class AdminController extends BaseController {
 
     public function actionIndex() {
         $searchModel = new AdminSearch();

@@ -48,15 +48,15 @@ class Admin extends BaseModel implements IdentityInterface {
      */
     public function attributeLabels() {
         return [
-            'id' => '自增ID',
-            'username' => '用户名',
-            'auth_key' => '自动登录key',
-            'password_hash' => '加密密码',
-            'password_reset_token' => '重置密码token',
-            'email' => '邮箱',
-            'status' => '用户状态',
-            'created_at' => '创建时间',
-            'updated_at' => '更新时间',
+            'id' => Yii::t('app/admin', 'ID'),
+            'username' => Yii::t('app/admin', 'Username'),
+            'auth_key' => Yii::t('app/admin', 'Auth Key'),
+            'password_hash' => Yii::t('app/admin', 'Password Hash'),
+            'password_reset_token' => Yii::t('app/admin', 'Password Reset Token'),
+            'email' => Yii::t('app/admin', 'Email'),
+            'status' => Yii::t('app/admin', 'Status'),
+            'created_at' => Yii::t('app/admin', 'Created At'),
+            'updated_at' => Yii::t('app/admin', 'Updated At'),
         ];
     }
 

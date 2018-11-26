@@ -11,9 +11,9 @@ class GridView extends YiiGridView {
         parent::init();
         $this->options = ['class' => 'grid-view', 'id' => 'grid'];
         $this->layout = '{items}<div class="row"><div class="col-xs-6">{pager}</div><div class="col-xs-6"><div class="pull-right">{summary}</div></div></div>';
-        $this->emptyText = Yii::t('backend-layouts', 'no-data');
-        $this->summary = '{begin} - {end} ' . Yii::t('backend-layouts', 'total-records') . ' {totalCount} ' . Yii::t('backend-layouts', 'total-pages') . ' {pageCount}';
-        $this->pager = ['firstPageLabel' => Yii::t('backend-layouts', 'home'), 'prevPageLabel' => Yii::t('backend-layouts', 'prev-page'), 'nextPageLabel' => Yii::t('backend-layouts', 'next-page'), 'lastPageLabel' => Yii::t('backend-layouts', 'last-page')];
+        $this->emptyText = Yii::t('app', 'No data');
+        $this->summary = '{begin} - {end} ' . Yii::t('app', 'Records') . ' {totalCount} ' . Yii::t('app', 'Pages') . ' {pageCount}';
+        $this->pager = ['firstPageLabel' => Yii::t('app', 'Home'), 'prevPageLabel' => Yii::t('app', 'Prev'), 'nextPageLabel' => Yii::t('app', 'Next'), 'lastPageLabel' => Yii::t('app', 'Last')];
         $this->tableOptions = ['class' => 'table table-striped table-bordered table-hover'];
     }
 
