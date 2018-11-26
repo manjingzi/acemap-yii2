@@ -12,8 +12,20 @@ use yii\helpers\Url;
                 </span>
             </div>
         </form>
-        <ul class="sidebar-menu" data-widget="tree">     
-            <li class="treeview">               
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header"><?= Yii::t('app', 'Switch language') ?></li>
+            <?php
+            $array = Yii::$app->params['site_lang'];
+            //不显示当前语言
+            foreach ($array as $lang) {
+                if ($lang !== Yii::$app->session->get('lang')) {
+                    ?>
+                    <li><a href="<?= Url::to(['/site/lang', 'lang' => $lang]) ?>"><i class="fa fa-circle-o text-red"></i> <span><?= Yii::t('app', $lang) ?></span></a></li>
+                    <?php
+                }
+            }
+            ?>
+            <li class="treeview">
                 <a href="#">                    
                     <i class="fa fa-gears"></i> <span>权限控制</span>                    
                     <i class="fa fa-angle-left pull-right"></i>               

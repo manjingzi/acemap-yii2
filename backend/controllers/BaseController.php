@@ -19,6 +19,21 @@ class BaseController extends Controller {
         }
     }
 
+    protected function setError($msg = null, $model = null) {
+        if ($model) {
+            $error = $model->getFirstErrors();
+            if ($error) {
+                $msg = array_values($error)[0];
+            }
+        }
+
+        Yii::$app->getSession()->setFlash('error', $msg ?: Yii::t('app', 'Operation result failed'));
+    }
+
+    protected function setSuccess($msg = null) {
+        Yii::$app->getSession()->setFlash('success', $msg ?: Yii::t('app', 'Successful operation result'));
+    }
+
     protected static function jsonEcho($array) {
         echo json_encode($array);
         exit;

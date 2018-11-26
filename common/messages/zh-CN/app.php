@@ -9,7 +9,7 @@ return [
     'zh-CN' => '中文',
     'Change password' => '修改密码',
     'Clear cache' => '清空缓存',
-    'Sign out' => '退出',
+    'Sign out' => '安全退出',
     //登录
     'Administrator login' => '管理员登录',
     'Sign in to start your session' => '登录开始会话',

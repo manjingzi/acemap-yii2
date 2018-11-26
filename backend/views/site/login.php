@@ -34,8 +34,8 @@ Pjax::begin();
             <div class="col-xs-4"><button type="submit" class="btn btn-primary btn-block btn-flat"><?= Yii::t('app', 'Sign in') ?></button></div>
         </div>
         <div class="social-auth-links">
+            <p><?= Yii::t('app', 'Switch language') ?></p>
             <p>
-                <?= Yii::t('app', 'Switch language') ?> ->  
                 <?php
                 $array = Yii::$app->params['site_lang'];
                 //不显示当前语言

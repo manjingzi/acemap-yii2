@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use common\extensions\Util;
 use backend\forms\LoginForm;
 
 class SiteController extends BaseController {
@@ -18,10 +20,16 @@ class SiteController extends BaseController {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index', 'logout'],
+                        'actions' => ['index', 'logout', 'clear-cache'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -72,6 +80,41 @@ class SiteController extends BaseController {
                 return $this->render('error', ['exception' => $exception]);
             }
         }
+    }
+
+    public function actionClearCache() {
+        Yii::$app->cache->flush(); //数据缓存文件
+
+        $backend_runtime_dir = Yii::getAlias('@backend/runtime');
+        $backend_runtime_array = Util::getDir($backend_runtime_dir);
+
+        foreach ($backend_runtime_array as $dir) {
+            Util::deleteDirAndFile($backend_runtime_dir . DIRECTORY_SEPARATOR . $dir);
+        }
+
+        $backend_dir = Yii::getAlias('@backend/web/assets');
+        $backend_array = Util::getDir($backend_dir);
+
+        foreach ($backend_array as $dir) {
+            Util::deleteDirAndFile($backend_dir . DIRECTORY_SEPARATOR . $dir);
+        }
+
+        $frontend_runtime_dir = Yii::getAlias('@frontend/runtime');
+        $frontend_runtime_array = Util::getDir($frontend_runtime_dir);
+
+        foreach ($frontend_runtime_array as $dir) {
+            Util::deleteDirAndFile($frontend_runtime_dir . DIRECTORY_SEPARATOR . $dir);
+        }
+
+        $frontend_dir = Yii::getAlias('@frontend/web/assets');
+        $frontend_array = Util::getDir($frontend_dir);
+
+        foreach ($frontend_array as $dir) {
+            Util::deleteDirAndFile($frontend_dir . DIRECTORY_SEPARATOR . $dir);
+        }
+
+        $this->setSuccess();
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
 }
