@@ -29,6 +29,12 @@ class AdminController extends BaseController {
         return $this->render('create', ['model' => $model]);
     }
 
+    public function actionView($id) {
+        $model = $this->findModel($id);
+
+        return $this->render('view', ['model' => $model]);
+    }
+
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         if (Yii::$app->request->isPost) {

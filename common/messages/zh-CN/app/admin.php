@@ -1,8 +1,7 @@
 <?php
 
 return [
-    'System user management' => '系统用户管理',
-    'System user list' => '系统用户列表',
+    'System user' => '系统用户',
     'Old password' => '旧密码',
     'New password' => '新密码',
     'Confirm password' => '确认密码',

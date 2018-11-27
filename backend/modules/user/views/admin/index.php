@@ -7,8 +7,10 @@ use common\models\Admin;
 use common\extensions\Util;
 use backend\widgets\GridView;
 use backend\widgets\SearchForm;
+use backend\widgets\ActiveForm;
 
-$this->title = Yii::t('app/admin', 'System user management');
+$this->title = Yii::t('app', 'List');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'), 'url' => ['index']];
 $keyword = Admin::getSearchParams('keyword');
 ?>
 <div class="row">
@@ -27,15 +29,13 @@ $keyword = Admin::getSearchParams('keyword');
                 <?= $form->field($searchModel, 'keyword')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Please enter keywords'), 'value' => $keyword]) ?>
                 <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                 <?= Html::a(Yii::t('app', 'Reset'), Url::to(['index']), ['class' => 'btn btn-default']) ?>
-                <div class="pull-right">
-                    <?= Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create']), ['class' => 'btn btn-success']) ?>
-                </div>
                 <?php SearchForm::end(); ?>
             </div>
         </div>
 
         <div class="box">
             <div class="box-header">
+                <div class="pull-right"><?= ActiveForm::staticHrefButton(ActiveForm::CREATE) ?></div>
                 <h3 class="box-title"><?= Yii::t('app', 'List') ?></h3>
             </div>
             <div class="box-body">
@@ -71,7 +71,7 @@ $keyword = Admin::getSearchParams('keyword');
                         [
                             'class' => 'backend\widgets\ActionColumn',
                             'header' => Yii::t('app', 'Operation'),
-                            'template' => '{view} {update} {delete}',
+                            'template' => '{view} {update}',
                         ],
                     ],
                 ]);

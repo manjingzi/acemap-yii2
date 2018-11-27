@@ -8,7 +8,6 @@ $links[] = $this->title;
 ?>
 <div class="content-wrapper">
     <section class="content-header">
-        <h1><?= $this->title ?></h1>
         <?= Breadcrumbs::widget(['homeLink' => $home, 'links' => $links]) ?>
     </section>
     <section class="content">
