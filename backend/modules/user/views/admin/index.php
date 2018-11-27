@@ -35,7 +35,7 @@ $keyword = Admin::getSearchParams('keyword');
 
         <div class="box">
             <div class="box-header">
-                <div class="pull-right"><?= ActiveForm::staticHrefButton(ActiveForm::CREATE) ?></div>
+                <div class="pull-right"><?= ActiveForm::staticCreateButton() ?></div>
                 <h3 class="box-title"><?= Yii::t('app', 'List') ?></h3>
             </div>
             <div class="box-body">

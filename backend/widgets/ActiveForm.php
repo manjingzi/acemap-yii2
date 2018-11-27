@@ -39,22 +39,22 @@ class ActiveForm extends YiiActiveForm {
      * @param type $text
      * @return type
      */
-    public static function staticSubmitButton($isNew) {
+    public static function staticSubmitButton($isNew = false) {
         $text = $isNew ? '<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create') : '<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update');
         $class = $isNew ? 'btn btn-success' : 'btn btn-primary';
         return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . Html::submitButton($text, ['class' => $class]) . '</div></div>';
     }
 
     /**
-     * 创建链接按钮
-     * @param type $type 1创建 2更新 3删除
+     * 链接按钮
+     * @param type $type
      * @param type $id
      * @return type
      */
-    public static function staticHrefButton($type, $id = null) {
+    public static function staticHrefButton($type, $id = null, $wrapper = true) {
         $html = '';
-        $create = Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create', 'id' => $id]), ['class' => 'btn btn-success']);
-        $update = Html::a('<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update'), Url::to(['update', 'id' => $id]), ['class' => 'btn btn-primary']);
+        $create = Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create', 'id' => $id]), ['class' => 'btn btn-success']) . ' ';
+        $update = Html::a('<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update'), Url::to(['update', 'id' => $id]), ['class' => 'btn btn-primary']) . ' ';
         $delete = Html::a('<i class="fa fa-trash"></i> ' . Yii::t('app', 'Delete'), Url::to(['delete', 'id' => $id]), [
                     'class' => 'btn btn-danger',
                     'data-confirm' => Yii::t('app', 'Are you sure you want to delete the operation?'),
@@ -72,20 +72,45 @@ class ActiveForm extends YiiActiveForm {
                 $html = $delete;
                 break;
             case self::CREATE_UPDATE:
-                $html = $create . ' ' . $update;
+                $html = $create . $update;
                 break;
             case self::CREATE_DELETE:
-                $html = $create . ' ' . $delete;
+                $html = $create . $delete;
                 break;
             case self::UPDATE_DELETE:
-                $html = $update . ' ' . $delete;
+                $html = $update . $delete;
                 break;
             case self::CREATE_UPDATE_DELETE:
-                $html = $create . ' ' . $update . ' ' . $delete;
+                $html = $create . $update . $delete;
                 break;
         }
 
-        return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . $html . '</div>';
+        if ($wrapper) {
+            return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . $html . '</div>';
+        }
+
+        return $html;
+    }
+
+    /**
+     *  创建链接按钮
+     */
+    public static function staticCreateButton($id = null, $wrapper = false) {
+        return self::staticHrefButton(self::CREATE, $id, $wrapper);
+    }
+
+    /**
+     *  更新链接按钮
+     */
+    public static function staticUpdateButton($id = null, $wrapper = false) {
+        return self::staticHrefButton(self::UPDATE, $id, $wrapper);
+    }
+
+    /**
+     *  删除链接按钮
+     */
+    public static function staticDeleteButton($id = null, $wrapper = false) {
+        return self::staticHrefButton(self::DELETE, $id, $wrapper);
     }
 
     /**

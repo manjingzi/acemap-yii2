@@ -6,6 +6,7 @@ $this->title = Yii::t('app', 'View');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'), 'url' => ['index']];
 ?>
 <div class="box">
+    <!--需加上<div class="form-horizontal"></div>-->
     <div class="form-horizontal">
         <div class="box-body">
             <?= ActiveForm::staticText(Yii::t('app', 'Username'), $model->username) ?>
