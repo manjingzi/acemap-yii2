@@ -10,6 +10,11 @@ return [
     'Change password' => '修改密码',
     'Clear cache' => '清空缓存',
     'Sign out' => '安全退出',
+    //页面标题
+    'Welcome' => '欢迎页面',
+    'System user' => '系统用户',
+    'Website user' => '网站用户',
+    'Authority control' => '权限控制',
     //登录
     'Administrator login' => '管理员登录',
     'Sign in to start your session' => '登录开始会话',

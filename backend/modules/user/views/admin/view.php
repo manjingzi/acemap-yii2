@@ -4,7 +4,7 @@ use backend\widgets\ActiveForm;
 use common\models\Admin;
 
 $this->title = Yii::t('app', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">

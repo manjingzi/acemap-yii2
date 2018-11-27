@@ -7,8 +7,7 @@ return [
             'basePath' => '@common/messages',
             'fileMap' => [
                 'app' => 'app.php',
-                'app/app/admin' => 'admin.php',
-                'app/app/site' => 'site.php',
+                'app/app/error' => 'error.php',
             ],
         ],
         'yii' => [

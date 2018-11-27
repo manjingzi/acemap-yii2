@@ -9,7 +9,7 @@ use backend\widgets\SearchForm;
 use backend\widgets\ActiveForm;
 
 $this->title = Yii::t('app', 'List');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
 $keyword = Admin::getSearchParams('keyword');
 ?>
 <div class="row">
