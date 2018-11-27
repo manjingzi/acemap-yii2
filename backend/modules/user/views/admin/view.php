@@ -19,9 +19,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'),
         <div class="box-footer">
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
-                    <?= ActiveForm::staticDeleteButton($model->id) ?>
-                    <?= ActiveForm::staticPasswordButton($model->id) ?>
-                    <?= ActiveForm::staticUpdateButton($model->id) ?>
+                    <?php if (!Admin::checkSuperUser($model->id)) { ?>
+                        <?= ActiveForm::staticDeleteButton($model->id) ?>
+                        <?= ActiveForm::staticUpdateButton($model->id) ?>
+                        <?= ActiveForm::staticPasswordButton($model->id) ?>
+                    <?php } ?>
                 </div>
             </div>
         </div>

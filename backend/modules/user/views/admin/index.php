@@ -2,7 +2,6 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 use common\models\Admin;
 use common\extensions\Util;
 use backend\widgets\GridView;
@@ -39,7 +38,6 @@ $keyword = Admin::getSearchParams('keyword');
                 <h3 class="box-title"><?= Yii::t('app', 'List') ?></h3>
             </div>
             <div class="box-body">
-                <?php Pjax::begin(); ?> 
                 <?=
                 GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -69,14 +67,25 @@ $keyword = Admin::getSearchParams('keyword');
                             },
                         ],
                         [
+                            'attribute' => 'created_at',
+                            'format' => ['date', 'php:Y-m-d H:i:s']
+                        ],
+                        [
                             'class' => 'backend\widgets\ActionColumn',
                             'header' => Yii::t('app', 'Operation'),
-                            'template' => '{view} {update}',
+                            'template' => '{delete} {update} {view}',
+                            'visibleButtons' => [
+                                'update' => function ($model) {
+                                    return !Admin::checkSuperUser($model->id);
+                                },
+                                'delete' => function ($model) {
+                                    return !Admin::checkSuperUser($model->id);
+                                },
+                            ]
                         ],
                     ],
                 ]);
                 ?>
-                <?php Pjax::end(); ?>
             </div>
         </div>
     </div>

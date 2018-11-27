@@ -75,5 +75,5 @@ return [
     'Information acquisition failure' => '信息获取失败',
     'File write failure' => '文件写入失败',
     //YII替换
-    '{attribute} "{value}" has already been taken.' => '{attribute}已被占用。',
+    '{attribute} "{value}" has already been taken.' => '{attribute}已被占用',
 ];

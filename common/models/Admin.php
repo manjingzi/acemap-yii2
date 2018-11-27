@@ -134,4 +134,8 @@ class Admin extends BaseModel implements IdentityInterface {
         return $timestamp + $expire >= time();
     }
 
+    public static function checkSuperUser($id) {
+        return in_array($id, Yii::$app->params['admin_super_user_id']);
+    }
+
 }

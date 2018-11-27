@@ -41,6 +41,7 @@ class AdminController extends BaseController {
     }
 
     public function actionUpdate($id) {
+        $this->checkSuperUser($id);
         $model = AdminUpdateForm::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -56,6 +57,7 @@ class AdminController extends BaseController {
     }
 
     public function actionChangePassword($id) {
+        $this->checkSuperUser($id);
         $model = AdminChangePasswordForm::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -71,6 +73,8 @@ class AdminController extends BaseController {
     }
 
     public function actionDelete($id) {
+        $this->checkSuperUser($id);
+
         if (Yii::$app->request->isPost) {
             $this->commonUpdateByField(Admin::className(), ['id' => $id], ['status' => Admin::STATUS_DELETED, 'updated_at' => time()]);
             return $this->redirect(Yii::$app->request->referrer);
@@ -82,6 +86,13 @@ class AdminController extends BaseController {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function checkSuperUser($id) {
+        if (Admin::checkSuperUser($id)) {
+            $this->setError(null, Yii::t('app', 'Permission denied'));
+            return $this->goHome();
         }
     }
 
