@@ -14,7 +14,7 @@ $keyword = Admin::getSearchParams('keyword');
 ?>
 <div class="row">
     <div class="col-xs-12">
-        <div class="box">
+        <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title"><?= Yii::t('app', 'Search') ?></h3>
                 <div class="box-tools pull-right">
@@ -32,10 +32,10 @@ $keyword = Admin::getSearchParams('keyword');
             </div>
         </div>
 
-        <div class="box">
-            <div class="box-header">
+        <div class="box box-primary">
+            <div class="box-header with-border">
                 <div class="pull-right"><?= ActiveForm::staticCreateButton() ?></div>
-                <h3 class="box-title"><?= Yii::t('app', 'List') ?></h3>
+                <h3 class="box-title"><?= $this->title ?></h3>
             </div>
             <div class="box-body">
                 <?=
