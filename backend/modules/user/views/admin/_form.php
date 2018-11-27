@@ -12,7 +12,8 @@ if ($model->isNewRecord) {
     <div class="box-body">
         <?php if ($model->isNewRecord) { ?>
             <?= $form->text('username', $model) ?>
-            <?= $form->password('password_hash', $model) ?>
+            <?= $form->password('newPassword', $model) ?>
+            <?= $form->password('confirmPassword', $model) ?>
         <?php } else { ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Username'), $model->username); ?>
         <?php } ?>

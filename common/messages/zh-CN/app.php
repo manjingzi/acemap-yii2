@@ -16,6 +16,9 @@ return [
     'Sign in' => '登录',
     'Username' => '用户名',
     'Password' => '密码',
+    'Old password' => '旧密码',
+    'New password' => '新密码',
+    'Confirm password' => '确认密码',
     'Remember me' => '记住我',
     'Email' => '电子邮箱',
     'Status' => '状态',
@@ -28,6 +31,8 @@ return [
     'New data validation failed' => '新增数据验证失败',
     'Please check if the model name in the template is correct' => '请检查模板中的模型名称是否正确',
     'The account is locked. Please contact the administrator' => '账户已锁定，请联系管理员',
+    'Please enter a valid new password and confirmation password' => '请输入有效的新密码和确认密码',
+    'Old password validation failed' => '旧密码验证失败',
     //列表
     'Home' => '首页',
     'Normal' => '正常',

@@ -1,6 +1,7 @@
 <?php
 
 use backend\widgets\ActiveForm;
+use common\models\Admin;
 
 $this->title = Yii::t('app', 'View');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'), 'url' => ['index']];
@@ -13,9 +14,15 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/admin', 'System user'),
             <?= ActiveForm::staticText(Yii::t('app', 'Email'), $model->email) ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Created At'), date('Y-m-d H:i:s', $model->created_at)) ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Updated At'), date('Y-m-d H:i:s', $model->updated_at)) ?>
+            <?= ActiveForm::staticText(Yii::t('app', 'Status'), Admin::getStatusIcon($model->status)) ?>
         </div>
         <div class="box-footer">
-            <?= ActiveForm::staticHrefButton(ActiveForm::UPDATE_DELETE, $model->id) ?>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <?= ActiveForm::staticDeleteButton($model->id) ?>
+                    <?= ActiveForm::staticPasswordButton($model->id) ?>
+                    <?= ActiveForm::staticUpdateButton($model->id) ?>
+                </div>
+            </div>
         </div>
     </div>
-</div>

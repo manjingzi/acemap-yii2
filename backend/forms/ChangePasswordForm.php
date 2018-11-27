@@ -16,16 +16,16 @@ class ChangePasswordForm extends Model {
         return [
             [['oldPassword', 'newPassword', 'confirmPassword'], 'required'],
             [['oldPassword', 'newPassword', 'confirmPassword'], 'string', 'length' => [6, 20]],
-            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app/admin', 'Please enter a valid new password and confirmation password')],
+            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
             ['oldPassword', 'validatePassword'],
         ];
     }
 
     public function attributeLabels() {
         return [
-            'oldPassword' => Yii::t('app/admin', 'Old password'),
-            'newPassword' => Yii::t('app/admin', 'New password'),
-            'confirmPassword' => Yii::t('app/admin', 'Confirm password'),
+            'oldPassword' => Yii::t('app', 'Old password'),
+            'newPassword' => Yii::t('app', 'New password'),
+            'confirmPassword' => Yii::t('app', 'Confirm password'),
         ];
     }
 
@@ -34,7 +34,7 @@ class ChangePasswordForm extends Model {
             $user = $this->getUser();
             
             if (!$user || !$user->validatePassword($this->oldPassword)) {
-                $this->addError($attribute, Yii::t('app/admin', 'Old password validation failed'));
+                $this->addError($attribute, Yii::t('app', 'Old password validation failed'));
             }
         }
     }

@@ -132,16 +132,4 @@ class Admin extends BaseModel implements IdentityInterface {
         return $timestamp + $expire >= time();
     }
 
-    public function beforeSave($insert) {
-        if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                $this->setPassword($this->password_hash);
-                $this->generateAuthKey();
-                $this->generatePasswordResetToken();
-            }
-            return true;
-        }
-        return false;
-    }
-
 }

@@ -8,6 +8,8 @@ use common\models\Admin;
 use backend\controllers\BaseController;
 use backend\modules\user\forms\AdminSearch;
 use backend\modules\user\forms\AdminChangePasswordForm;
+use backend\modules\user\forms\AdminCreateForm;
+use backend\modules\user\forms\AdminUpdateForm;
 
 class AdminController extends BaseController {
 
@@ -19,11 +21,10 @@ class AdminController extends BaseController {
     }
 
     public function actionCreate() {
-        $model = new Admin();
-        if (Yii::$app->request->isPost) {
-            if ($this->commonCreate($model)) {
-                return $this->refresh();
-            }
+        $model = new AdminCreateForm();
+        if ($model->load(Yii::$app->request->post()) && $model->createAdmin()) {
+            $this->setSuccess();
+            return $this->refresh();
         }
 
         return $this->render('create', ['model' => $model]);
@@ -36,18 +37,18 @@ class AdminController extends BaseController {
     }
 
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
-        if (Yii::$app->request->isPost) {
-            if ($this->commonUpdate($model)) {
-                return $this->refresh();
-            }
+        $model = AdminUpdateForm::findOne($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->updateAdmin()) {
+            $this->setSuccess();
+            return $this->refresh();
         }
 
         return $this->render('update', ['model' => $model]);
     }
 
     public function actionChangePassword($id) {
-        $model = new AdminChangePasswordForm($id);
+        $model = AdminChangePasswordForm::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->changePassword()) {

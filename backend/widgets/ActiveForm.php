@@ -11,11 +11,12 @@ class ActiveForm extends YiiActiveForm {
 
     const CREATE = 1;
     const UPDATE = 2;
-    const DELETE = 3;
+    const PASSWORD = 3;
+    const DELETE = 4;
     const CREATE_UPDATE = 12;
-    const CREATE_DELETE = 13;
-    const UPDATE_DELETE = 23;
-    const CREATE_UPDATE_DELETE = 123;
+    const CREATE_DELETE = 14;
+    const UPDATE_DELETE = 24;
+    const CREATE_UPDATE_DELETE = 124;
 
     public $options = ['class' => 'form-horizontal'];
     public $fieldConfig = [
@@ -55,6 +56,7 @@ class ActiveForm extends YiiActiveForm {
         $html = '';
         $create = Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create', 'id' => $id]), ['class' => 'btn btn-success']) . ' ';
         $update = Html::a('<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update'), Url::to(['update', 'id' => $id]), ['class' => 'btn btn-primary']) . ' ';
+        $password = Html::a('<i class="fa fa-lock"></i> ' . Yii::t('app', 'Change password'), Url::to(['change-password', 'id' => $id]), ['class' => 'btn btn-warning']) . ' ';
         $delete = Html::a('<i class="fa fa-trash"></i> ' . Yii::t('app', 'Delete'), Url::to(['delete', 'id' => $id]), [
                     'class' => 'btn btn-danger',
                     'data-confirm' => Yii::t('app', 'Are you sure you want to delete the operation?'),
@@ -67,6 +69,9 @@ class ActiveForm extends YiiActiveForm {
                 break;
             case self::UPDATE:
                 $html = $update;
+                break;
+            case self::PASSWORD:
+                $html = $password;
                 break;
             case self::DELETE:
                 $html = $delete;
@@ -104,6 +109,13 @@ class ActiveForm extends YiiActiveForm {
      */
     public static function staticUpdateButton($id = null, $wrapper = false) {
         return self::staticHrefButton(self::UPDATE, $id, $wrapper);
+    }
+
+    /**
+     *  密码链接按钮
+     */
+    public static function staticPasswordButton($id = null, $wrapper = false) {
+        return self::staticHrefButton(self::PASSWORD, $id, $wrapper);
     }
 
     /**
