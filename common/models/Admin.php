@@ -61,6 +61,8 @@ class Admin extends BaseModel implements IdentityInterface {
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'newPassword' => Yii::t('app', 'New password'),
+            'confirmPassword' => Yii::t('app', 'Confirm password'),
         ];
     }
 

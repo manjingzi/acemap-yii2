@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\UnauthorizedHttpException;
 use yii\web\Controller;
 use common\models\BaseModel;
@@ -21,7 +22,7 @@ class BaseController extends Controller {
         }
     }
 
-    protected function setError($msg = null, $model = null) {
+    protected function setError($model = null, $msg = null) {
         if ($model) {
             $error = $model->getFirstErrors();
             if ($error) {

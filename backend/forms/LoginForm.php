@@ -45,6 +45,8 @@ class LoginForm extends Model {
                     $this->addError($attribute, Yii::t('app', 'The account is locked. Please contact the administrator'));
                 }
                 if ($user->validatePassword($this->password)) {
+                    $user->updated_at = time();
+                    $user->save(false);
                     $data['status'] = Admin::STATUS_ACTIVE;
                     $data['login_password'] = '';
                 } else {

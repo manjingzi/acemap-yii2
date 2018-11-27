@@ -47,7 +47,7 @@ class SiteController extends BaseController {
             Yii::$app->session->set('lang', $lang);
         }
 
-        $this->goBack(Yii::$app->request->referrer); //切换完语言哪来的返回到哪里
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     public function actionLogin() {
@@ -78,7 +78,7 @@ class SiteController extends BaseController {
                 $this->setSuccess();
                 return $this->refresh();
             } else {
-                $this->setError(null, $model);
+                $this->setError($model);
             }
         }
 

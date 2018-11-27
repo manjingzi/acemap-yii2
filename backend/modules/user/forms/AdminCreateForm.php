@@ -27,16 +27,6 @@ class AdminCreateForm extends Admin {
         ];
     }
 
-    public function attributeLabels() {
-        return [
-            'username' => Yii::t('app', 'Username'),
-            'email' => Yii::t('app', 'Email'),
-            'newPassword' => Yii::t('app', 'New password'),
-            'confirmPassword' => Yii::t('app', 'Confirm password'),
-            'status' => Yii::t('app', 'Status'),
-        ];
-    }
-
     public function createAdmin() {
         if ($this->validate()) {
             $user = new Admin();

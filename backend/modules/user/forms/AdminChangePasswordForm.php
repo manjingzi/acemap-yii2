@@ -18,16 +18,10 @@ class AdminChangePasswordForm extends Admin {
         ];
     }
 
-    public function attributeLabels() {
-        return [
-            'newPassword' => Yii::t('app', 'New password'),
-            'confirmPassword' => Yii::t('app', 'Confirm password'),
-        ];
-    }
-
     public function changePassword() {
         if ($this->validate()) {
             $this->setPassword($this->newPassword);
+            $this->updated_at = time();
             return $this->save(false);
         }
 

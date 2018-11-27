@@ -22,9 +22,13 @@ class AdminController extends BaseController {
 
     public function actionCreate() {
         $model = new AdminCreateForm();
-        if ($model->load(Yii::$app->request->post()) && $model->createAdmin()) {
-            $this->setSuccess();
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->createAdmin()) {
+                $this->setSuccess();
+                return $this->refresh();
+            } else {
+                $this->setError($model);
+            }
         }
 
         return $this->render('create', ['model' => $model]);
@@ -39,9 +43,13 @@ class AdminController extends BaseController {
     public function actionUpdate($id) {
         $model = AdminUpdateForm::findOne($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->updateAdmin()) {
-            $this->setSuccess();
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->updateAdmin()) {
+                $this->setSuccess();
+                return $this->refresh();
+            } else {
+                $this->setError($model);
+            }
         }
 
         return $this->render('update', ['model' => $model]);
@@ -64,9 +72,8 @@ class AdminController extends BaseController {
 
     public function actionDelete($id) {
         if (Yii::$app->request->isPost) {
-            if ($this->commonUpdateField(User::className(), ['c_status' => User::STATUS_NO], ['c_id' => $id])) {
-                return $this->redirect(Yii::$app->request->referrer);
-            }
+            $this->commonUpdateByField(Admin::className(), ['id' => $id], ['status' => Admin::STATUS_DELETED, 'updated_at' => time()]);
+            return $this->redirect(Yii::$app->request->referrer);
         }
     }
 

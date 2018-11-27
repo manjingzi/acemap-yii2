@@ -5,7 +5,7 @@ namespace backend\modules\user\forms;
 use yii\data\ActiveDataProvider;
 use common\models\User;
 
-class UserSearch extends Admin {
+class UserSearch extends User {
 
     public $pagesize = 10;
     public $keyword;
@@ -50,7 +50,7 @@ class UserSearch extends Admin {
             }
 
             if ($this->status) {
-                $query->andWhere(['c_status' => $this->status]);
+                $query->andWhere(['status' => $this->status]);
             }
 
             $provider_params['pagination']['pageSize'] = $this->pagesize;
