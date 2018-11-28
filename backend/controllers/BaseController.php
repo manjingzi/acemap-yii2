@@ -282,4 +282,46 @@ class BaseController extends Controller {
 //
 //        throw new UnauthorizedHttpException(' 你没有该权限 '); //如果没有该权限，抛出一个异常
 //    }
+    
+    /* 例子新增规则
+class AuthorRule extends Rule
+{
+    public $name = 'isAuthor';
+
+    public function execute($user, $item, $params)
+    {
+        $action = \Yii::$app->controller->action->id;//获取当前的动作名称
+
+        if ($action=='delete')//如果该动作为删除则验证是否能够删除
+        {
+            $article = Article::findOne(\Yii::$app->request->get('id'));
+            $author = $article->userid;
+            if ($author==\Yii::$app->user->id)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+}
+public function actionCreaterule()
+    {
+        if (\Yii::$app->request->isPost)
+        {
+            $name = \Yii::$app->request->post('class_name');
+            $class = 'common\models\\'.$name;
+            if (!class_exists($class))
+            {
+                throw  new NotFoundHttpException('该规则类不存在');
+            }
+            $rule = new $class;
+            if (\Yii::$app->authManager->add($rule))
+            {
+                \Yii::$app->session->setFlash('info','添加成功');
+            }
+        }
+        return $this->render('createrule');
+    }
+     
+         */
 }

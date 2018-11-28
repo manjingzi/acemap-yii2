@@ -22,6 +22,7 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Created At' => '创建时间',
             'Updated At' => '更新时间',
             'Login Ip' => '登录IP',
+            'Description' => '描述',
             //附加labels
             'Old Password' => '旧密码',
             'New Password' => '新密码',
@@ -40,8 +41,8 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Please enter a valid new password and confirmation password' => '请输入有效的新密码和确认密码',
             'Old password validation failed' => '旧密码验证失败',
             //查询
-            'Select page number' => '选择页码',
-            'Selection status' => '选择状态',
+            'Select pagesize' => '选择页码',
+            'Select status' => '选择状态',
             'Please enter keywords' => '请输入关键词',
             //列表
             'ID' => 'ID',

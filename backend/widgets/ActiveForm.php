@@ -13,6 +13,8 @@ class ActiveForm extends YiiActiveForm {
     const UPDATE = 2;
     const PASSWORD = 3;
     const DELETE = 4;
+    const SEARCH = 5;
+    const RESET = 6;
     const CREATE_UPDATE = 12;
     const CREATE_DELETE = 14;
     const UPDATE_DELETE = 24;
@@ -35,15 +37,53 @@ class ActiveForm extends YiiActiveForm {
     }
 
     /**
-     * 提交或更新按钮
-     * @param type $field
-     * @param type $text
+     * 提交按钮
+     * @param type $type
+     * @param type $wrapper
      * @return type
      */
-    public static function staticSubmitButton($isNew = false) {
-        $text = $isNew ? '<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create') : '<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update');
-        $class = $isNew ? 'btn btn-success' : 'btn btn-primary';
-        return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . Html::submitButton($text, ['class' => $class]) . '</div></div>';
+    public static function staticButton($type, $wrapper = false) {
+        $class = '';
+        $text = '';
+
+        switch ($type) {
+            case self::CREATE:
+                $class = 'btn btn-success';
+                $text = '<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create');
+                break;
+            case self::UPDATE:
+                $class = 'btn btn-primary';
+                $text = '<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update');
+                break;
+            case self::PASSWORD:
+                $class = 'btn btn-warning';
+                $text = '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Password');
+                break;
+            case self::DELETE:
+                $class = 'btn btn-danger';
+                $text = '<i class="fa fa-trash"></i> ' . Yii::t('app', 'Update');
+                break;
+            case self::SEARCH:
+                $class = 'btn btn-primary';
+                $text = '<i class="fa fa-search"></i> ' . Yii::t('app', 'Search');
+                break;
+            case self::RESET:
+                $class = 'btn btn-default';
+                $text = Yii::t('app', 'Reset');
+                break;
+        }
+
+        $button = Html::submitButton($text, ['class' => $class]);
+
+        if ($type == self::RESET) {
+            $button = Html::resetButton($text, ['class' => $class]);
+        }
+
+        if ($wrapper) {
+            return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . $button . '</div></div>';
+        } else {
+            return $button;
+        }
     }
 
     /**
@@ -63,6 +103,8 @@ class ActiveForm extends YiiActiveForm {
                     'data-method' => 'post',
         ]);
 
+        $reset = Html::a(Yii::t('app', 'Reset'), Url::to(['index']), ['class' => 'btn btn-default']);
+
         switch ($type) {
             case self::CREATE:
                 $html = $create;
@@ -75,6 +117,9 @@ class ActiveForm extends YiiActiveForm {
                 break;
             case self::DELETE:
                 $html = $delete;
+                break;
+            case self::RESET:
+                $html = $reset;
                 break;
             case self::CREATE_UPDATE:
                 $html = $create . $update;
@@ -90,7 +135,7 @@ class ActiveForm extends YiiActiveForm {
                 break;
         }
 
-        if ($type > 4) {
+        if ($type > self::RESET) {
             return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . $html . '</div>';
         }
 
@@ -195,6 +240,28 @@ class ActiveForm extends YiiActiveForm {
      */
     public function checkboxList($field, $model, $array) {
         return $this->field($model, $field)->checkboxList($array, ['itemOptions' => ['labelOptions' => ['class' => 'checkbox-inline']]]);
+    }
+
+    public function dropDownList($field, $model, $array, $defaultValue = null, $prompt = null) {
+        return $this->field($model, $field)->dropDownList($array, ['prompt' => $prompt, 'value' => $defaultValue]);
+    }
+
+    public function selectPagesize($model, $field = 'pagesize') {
+        return $this->dropDownList($field, $model, $model::getPageSize(), $model::getSearchParams($field), Yii::t('app', 'Select pagesize'));
+    }
+
+    public function selectStatus($model, $field = 'status') {
+        return $this->dropDownList($field, $model, $model::getStatusText(), $model::getSearchParams($field), Yii::t('app', 'Select status'));
+    }
+
+    /**
+     * 关键词查询
+     * @param type $model  
+     * @param type $field
+     * @return type
+     */
+    public function searchKeyword($model, $field = 'keyword') {
+        return $this->field($model, $field)->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Please enter keywords'), 'value' => $model::getSearchParams($field)]);
     }
 
     /**

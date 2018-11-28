@@ -6,7 +6,7 @@ use Yii;
 use yii\web\NotFoundHttpException;
 use common\models\Admin;
 use backend\controllers\BaseController;
-use backend\modules\user\forms\AdminSearch;
+use backend\modules\user\search\AdminSearch;
 use backend\modules\user\forms\AdminChangePasswordForm;
 use backend\modules\user\forms\AdminCreateForm;
 use backend\modules\user\forms\AdminUpdateForm;

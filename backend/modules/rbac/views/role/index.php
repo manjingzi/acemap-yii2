@@ -1,16 +1,14 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Html;
-use common\models\Admin;
+use common\models\AuthItem;
 use common\extensions\Util;
 use backend\widgets\GridView;
 use backend\widgets\SearchForm;
 use backend\widgets\ActiveForm;
 
 $this->title = Yii::t('app', 'List');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
-$keyword = Admin::getSearchParams('keyword');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' => ['index']];
+$keyword = AuthItem::getSearchParams('keyword');
 ?>
 <div class="row">
     <div class="col-xs-12">
@@ -23,11 +21,10 @@ $keyword = Admin::getSearchParams('keyword');
             </div>
             <div class="box-body">
                 <?php $form = SearchForm::begin(); ?>
-                <?= $form->field($searchModel, 'pagesize')->dropDownList(Admin::getPageSize(), ['prompt' => Yii::t('app', 'Select page number'), 'value' => Admin::getSearchParams('pagesize')]) ?>
-                <?= $form->field($searchModel, 'status')->dropDownList(Admin::getStatusText(), ['prompt' => Yii::t('app', 'Selection status'), 'value' => Admin::getSearchParams('status')]) ?>
-                <?= $form->field($searchModel, 'keyword')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Please enter keywords'), 'value' => $keyword]) ?>
-                <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-                <?= Html::a(Yii::t('app', 'Reset'), Url::to(['index']), ['class' => 'btn btn-default']) ?>
+                <?= $form->selectPagesize($searchModel) ?>
+                <?= $form->searchKeyword($searchModel) ?>
+                <?= ActiveForm::staticHrefButton(ActiveForm::RESET) ?>
+                <?= ActiveForm::staticButton(ActiveForm::SEARCH) ?>
                 <?php SearchForm::end(); ?>
             </div>
         </div>
@@ -43,28 +40,25 @@ $keyword = Admin::getSearchParams('keyword');
                     'dataProvider' => $dataProvider,
                     'columns' => [
                         [
-                            'attribute' => 'id'
-                        ],
-                        [
-                            'attribute' => 'username',
+                            'attribute' => 'name',
                             'format' => 'raw',
                             'value' => function($model) use($keyword) {
-                                return $keyword ? Util::highlight($keyword, $model->username) : $model->username;
+                                return $keyword ? Util::highlight($keyword, $model->name) : $model->name;
                             }
                         ],
                         [
-                            'attribute' => 'email',
+                            'attribute' => 'rule_name',
                             'format' => 'raw',
                             'value' => function($model) use($keyword) {
-                                return $keyword ? Util::highlight($keyword, $model->email) : $model->email;
+                                return $keyword ? Util::highlight($keyword, $model->rule_name) : $model->rule_name;
                             }
                         ],
                         [
-                            'attribute' => 'status',
+                            'attribute' => 'description',
                             'format' => 'raw',
-                            'value' => function($model) {
-                                return Admin::getStatusIcon($model->status);
-                            },
+                            'value' => function($model) use($keyword) {
+                                return $keyword ? Util::highlight($keyword, $model->description) : $model->description;
+                            }
                         ],
                         [
                             'attribute' => 'created_at',
@@ -73,15 +67,7 @@ $keyword = Admin::getSearchParams('keyword');
                         [
                             'class' => 'backend\widgets\ActionColumn',
                             'header' => Yii::t('app', 'Operation'),
-                            'template' => '{delete} {update} {view}',
-                            'visibleButtons' => [
-                                'update' => function ($model) {
-                                    return !Admin::checkSuperUser($model->id);
-                                },
-                                'delete' => function ($model) {
-                                    return !Admin::checkSuperUser($model->id);
-                                },
-                            ]
+                            'template' => '{delete} {update} {view}'
                         ],
                     ],
                 ]);

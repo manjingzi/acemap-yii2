@@ -1,7 +1,5 @@
 <?php
 
-use yii\helpers\Url;
-use yii\helpers\Html;
 use common\models\Admin;
 use common\extensions\Util;
 use backend\widgets\GridView;
@@ -23,18 +21,18 @@ $keyword = Admin::getSearchParams('keyword');
             </div>
             <div class="box-body">
                 <?php $form = SearchForm::begin(); ?>
-                <?= $form->field($searchModel, 'pagesize')->dropDownList(Admin::getPageSize(), ['prompt' => Yii::t('app', 'Select page number'), 'value' => Admin::getSearchParams('pagesize')]) ?>
-                <?= $form->field($searchModel, 'status')->dropDownList(Admin::getStatusText(), ['prompt' => Yii::t('app', 'Selection status'), 'value' => Admin::getSearchParams('status')]) ?>
-                <?= $form->field($searchModel, 'keyword')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Please enter keywords'), 'value' => $keyword]) ?>
-                <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-                <?= Html::a(Yii::t('app', 'Reset'), Url::to(['index']), ['class' => 'btn btn-default']) ?>
+                <?= $form->selectPagesize($searchModel) ?>
+                <?= $form->selectStatus($searchModel) ?>
+                <?= $form->searchKeyword($searchModel) ?>
+                <?= ActiveForm::staticHrefButton(ActiveForm::RESET) ?>
+                <?= ActiveForm::staticButton(ActiveForm::SEARCH) ?>
                 <?php SearchForm::end(); ?>
             </div>
         </div>
 
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="pull-right"><?= ActiveForm::staticCreateButton() ?></div>
+                <div class="pull-right"><?= ActiveForm::staticButton(ActiveForm::CREATE) ?></div>
                 <h3 class="box-title"><?= $this->title ?></h3>
             </div>
             <div class="box-body">

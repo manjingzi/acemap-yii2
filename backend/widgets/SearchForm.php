@@ -2,13 +2,11 @@
 
 namespace backend\widgets;
 
-use yii\widgets\ActiveForm as YiiActiveForm;
-
-class SearchForm extends YiiActiveForm {
+class SearchForm extends ActiveForm {
 
     public $enableClientValidation = false;
     public $method = 'get';
-    public $options = ['class' => 'form-inline'];
+    public $options = ['class' => 'form-inline', ['options' => ['role' => 'form']]];
     public $fieldConfig = ['template' => '{input}'];
 
 }

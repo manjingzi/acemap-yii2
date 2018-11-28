@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\user\forms;
+namespace backend\modules\user\search;
 
 use yii\data\ActiveDataProvider;
 use common\models\User;
