@@ -8,8 +8,8 @@ use common\models\AuthItem;
 class AuthItemSearch extends AuthItem {
 
     public $pagesize = 10;
-    public $keyword;
     public $type;
+    public $keyword;
     public $start_time;
     public $end_time;
     private $time_field = 'created_at';
@@ -18,18 +18,17 @@ class AuthItemSearch extends AuthItem {
         return [
             ['pagesize', 'default', 'value' => 10],
             ['keyword', 'filter', 'filter' => 'trim'],
-            [['pagesize', 'status'], 'integer'],
-            [['start_time', 'end_time'], 'date'],
-            ['type', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['pagesize'], 'integer'],
+            [['start_time', 'end_time'], 'date']
         ];
     }
 
     public function search($params) {
-        $query = AuthItem::find();
+        $query = AuthItem::find()->where(['type' => $this->type]);
 
         $provider_params = [
             'query' => $query,
-            'sort' => ['defaultOrder' => ['type' => SORT_DESC]],
+            'sort' => ['defaultOrder' => ['created_at' => SORT_DESC]],
             'pagination' => ['pageSize' => $this->pagesize],
         ];
 
@@ -51,9 +50,6 @@ class AuthItemSearch extends AuthItem {
                 }
             }
 
-            $query->andWhere(['type' => $this->type]);
-
-            $provider_params['pagination']['pageSize'] = $this->pagesize;
             $provider_params['query'] = $query;
         }
 

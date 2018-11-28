@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url'
         <?= $form->password('confirmPassword', $model) ?>
     </div>
     <div class="box-footer">
-        <?= ActiveForm::staticSubmitButton() ?>
+        <?= ActiveForm::staticPasswordSubmitButton() ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

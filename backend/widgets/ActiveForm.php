@@ -57,7 +57,7 @@ class ActiveForm extends YiiActiveForm {
                 break;
             case self::PASSWORD:
                 $class = 'btn btn-warning';
-                $text = '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Password');
+                $text = '<i class="fa fa-lock"></i> ' . Yii::t('app', 'Change password');
                 break;
             case self::DELETE:
                 $class = 'btn btn-danger';
@@ -88,6 +88,10 @@ class ActiveForm extends YiiActiveForm {
 
     public static function staticSubmitButton($isNew = true) {
         return self::staticButton($isNew ? self::CREATE : self::UPDATE, true);
+    }
+
+    public static function staticPasswordSubmitButton() {
+        return self::staticButton(self::PASSWORD, true);
     }
 
     /**

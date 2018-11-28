@@ -53,7 +53,6 @@ class UserSearch extends User {
                 $query->andWhere(['status' => $this->status]);
             }
 
-            $provider_params['pagination']['pageSize'] = $this->pagesize;
             $provider_params['query'] = $query;
         }
 

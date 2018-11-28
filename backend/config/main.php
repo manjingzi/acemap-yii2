@@ -20,10 +20,10 @@ return [
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
-//        'authManager' => [
-//            'class' => 'yii\rbac\DbManager',
-//            'defaultRoles' => ['guest'],
-//        ]
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
+        ]
     ],
     'modules' => [
         'article' => [
