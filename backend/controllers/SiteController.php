@@ -7,7 +7,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use common\extensions\Util;
 use backend\forms\LoginForm;
-use backend\forms\ChangePasswordForm;
+use backend\forms\AdminChangePasswordForm;
 
 class SiteController extends BaseController {
 
@@ -72,7 +72,7 @@ class SiteController extends BaseController {
     }
 
     public function actionChangePassword() {
-        $model = new ChangePasswordForm();
+        $model = new AdminChangePasswordForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->changePassword()) {
                 $this->setSuccess();

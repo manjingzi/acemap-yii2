@@ -12,7 +12,7 @@ class LoginForm extends Model {
 
     public $username;
     public $password;
-    public $rememberMe = true;
+    public $remember_me = true;
     private $_user;
 
     public function rules() {
@@ -20,7 +20,7 @@ class LoginForm extends Model {
             [['username', 'password'], 'required'],
             [['username'], 'string', 'length' => [2, 20]],
             [['password'], 'string', 'length' => [6, 20]],
-            ['rememberMe', 'boolean'],
+            ['remember_me', 'boolean'],
             ['password', 'validatePassword'],
         ];
     }
@@ -29,7 +29,7 @@ class LoginForm extends Model {
         return [
             'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
-            'rememberMe' => Yii::t('app', 'Remember me'),
+            'remember_me' => Yii::t('app', 'Remember me'),
         ];
     }
 
@@ -63,7 +63,7 @@ class LoginForm extends Model {
 
     public function login() {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login($this->getUser(), $this->remember_me ? 3600 * 24 * 30 : 0);
         }
 
         return false;

@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url'
         <div class="box-body">
             <?= ActiveForm::staticText(Yii::t('app', 'Username'), $model->username) ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Email'), $model->email) ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Created At'), date('Y-m-d H:i:s', $model->created_at)) ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Updated At'), date('Y-m-d H:i:s', $model->updated_at)) ?>
+            <?= ActiveForm::staticText(Yii::t('app', 'Created at'), date('Y-m-d H:i:s', $model->created_at)) ?>
+            <?= ActiveForm::staticText(Yii::t('app', 'Updated at'), date('Y-m-d H:i:s', $model->updated_at)) ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Status'), Admin::getStatusIcon($model->status)) ?>
         </div>
         <?php if (!Admin::checkSuperUser($model->id)) { ?>

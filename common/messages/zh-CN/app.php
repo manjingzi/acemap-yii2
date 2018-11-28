@@ -19,6 +19,7 @@ return [
     'Administrator login' => '管理员登录',
     'Sign in to start your session' => '登录开始会话',
     'Sign in' => '登录',
+    //公共Labels
     'Username' => '用户名',
     'Password' => '密码',
     'Old password' => '旧密码',
@@ -27,10 +28,8 @@ return [
     'Remember me' => '记住我',
     'Email' => '电子邮箱',
     'Status' => '状态',
-    'Created At' => '创建时间',
-    'Updated At' => '更新时间',
-    'Please enter your username' => '请输入你的用户名',
-    'Please enter your password' => '请输入你的密码',
+    'Created at' => '创建时间',
+    'Updated at' => '更新时间',
     //提交结果
     'Username or password is incorrect' => '用户名或密码不正确',
     'New data validation failed' => '新增数据验证失败',
@@ -63,7 +62,9 @@ return [
     'Record' => '条',
     'Records' => '总记录',
     'Pages' => '总页数',
-    //验证码
+    //验证
+    'Please enter your username' => '请输入你的用户名',
+    'Please enter your password' => '请输入你的密码',
     'Please enter the validation code correctly' => '请正确输入验证码',
     'Verification code format error' => '验证码格式错误',
     'Verification code error' => '验证码错误',

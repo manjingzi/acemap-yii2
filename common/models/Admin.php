@@ -56,13 +56,15 @@ class Admin extends BaseModel implements IdentityInterface {
             'username' => Yii::t('app', 'Username'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'password_hash' => Yii::t('app', 'Password'),
-            'password_reset_token' => Yii::t('app', 'Password Reset Token'),
+            'password_reset_token' => Yii::t('app', 'Password reset token'),
             'email' => Yii::t('app', 'Email'),
             'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'newPassword' => Yii::t('app', 'New password'),
-            'confirmPassword' => Yii::t('app', 'Confirm password'),
+            'created_at' => Yii::t('app', 'Created at'),
+            'updated_at' => Yii::t('app', 'Updated at'),
+            //附加
+            'old_password' => Yii::t('app', 'Old password'),
+            'new_password' => Yii::t('app', 'New password'),
+            'confirm_password' => Yii::t('app', 'Confirm password'),
         ];
     }
 

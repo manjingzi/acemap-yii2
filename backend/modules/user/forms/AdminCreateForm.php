@@ -8,20 +8,20 @@ use common\models\Admin;
 class AdminCreateForm extends Admin {
 
     public $username;
-    public $newPassword;
-    public $confirmPassword;
+    public $new_password;
+    public $confirm_password;
     public $email;
     public $status;
 
     public function rules() {
         return [
-            [['username', 'email', 'newPassword', 'confirmPassword'], 'required'],
+            [['username', 'email', 'new_password', 'confirm_password'], 'required'],
             [['username'], 'string', 'length' => [2, 20]],
             [['email'], 'string', 'max' => 50],
             [['email'], 'email'],
             [['username', 'email'], 'unique'],
-            [['newPassword', 'confirmPassword'], 'string', 'length' => [6, 20]],
-            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
+            [['new_password', 'confirm_password'], 'string', 'length' => [6, 20]],
+            ['confirm_password', 'compare', 'compareAttribute' => 'new_password', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
@@ -35,7 +35,7 @@ class AdminCreateForm extends Admin {
             $user->status = self::STATUS_ACTIVE;
             $user->created_at = time();
             $user->updated_at = time();
-            $user->setPassword($this->newPassword);
+            $user->setPassword($this->new_password);
             $user->generatePasswordResetToken();
             $user->generateAuthKey();
             return $user->save(false);
