@@ -30,11 +30,11 @@ class BaseController extends Controller {
             }
         }
 
-        Yii::$app->getSession()->setFlash('error', $msg ?: Yii::t('app', 'Operation result failed'));
+        Yii::$app->getSession()->setFlash('error', $msg ? $msg : Yii::t('app', 'Operation result failed'));
     }
 
     protected function setSuccess($msg = null) {
-        Yii::$app->getSession()->setFlash('success', $msg ?: Yii::t('app', 'Successful operation result'));
+        Yii::$app->getSession()->setFlash('success', $msg ? $msg : Yii::t('app', 'Successful operation result'));
     }
 
     /**

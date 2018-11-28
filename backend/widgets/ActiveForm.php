@@ -52,14 +52,14 @@ class ActiveForm extends YiiActiveForm {
      * @param type $id
      * @return type
      */
-    public static function staticHrefButton($type, $id = null, $wrapper = true) {
+    public static function staticHrefButton($type, $id = null) {
         $html = '';
         $create = Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create', 'id' => $id]), ['class' => 'btn btn-success']) . ' ';
         $update = Html::a('<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update'), Url::to(['update', 'id' => $id]), ['class' => 'btn btn-primary']) . ' ';
         $password = Html::a('<i class="fa fa-lock"></i> ' . Yii::t('app', 'Change password'), Url::to(['change-password', 'id' => $id]), ['class' => 'btn btn-warning']) . ' ';
         $delete = Html::a('<i class="fa fa-trash"></i> ' . Yii::t('app', 'Delete'), Url::to(['delete', 'id' => $id]), [
                     'class' => 'btn btn-danger',
-                    'data-confirm' => Yii::t('app', 'Are you sure you want to delete the operation?'),
+                    'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                     'data-method' => 'post',
         ]);
 
@@ -90,7 +90,7 @@ class ActiveForm extends YiiActiveForm {
                 break;
         }
 
-        if ($wrapper) {
+        if ($type > 4) {
             return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . $html . '</div>';
         }
 

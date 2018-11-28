@@ -8,6 +8,7 @@ return [
             'fileMap' => [
                 'app' => 'app.php',
                 'app/app/error' => 'error.php',
+                'app/app/rbac' => 'rbac.php',
             ],
         ],
         'yii' => [
