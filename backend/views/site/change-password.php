@@ -8,9 +8,9 @@ $this->title = Yii::t('app', 'Change password');
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
         <?= ActiveForm::staticText(Yii::t('app', 'Username'), Yii::$app->user->identity->username) ?>
-        <?= $form->password('old_password', $model) ?>
-        <?= $form->password('new_password', $model) ?>
-        <?= $form->password('confirm_password', $model) ?>
+        <?= $form->password('oldPassword', $model) ?>
+        <?= $form->password('newPassword', $model) ?>
+        <?= $form->password('confirmPassword', $model) ?>
     </div>
     <div class="box-footer">
         <?= ActiveForm::staticSubmitButton(false) ?>

@@ -45,17 +45,17 @@ class AdminOperationLog extends BaseModel {
      */
     public function attributeLabels() {
         return [
-            'id' => Yii::t('app/admin', 'ID'),
-            'username' => Yii::t('app/admin', 'Username'),
-            'route' => Yii::t('app/admin', 'Route'),
-            'data_before' => Yii::t('app/admin', 'Data Before'),
-            'data_add' => Yii::t('app/admin', 'Data Add'),
-            'type' => Yii::t('app/admin', 'Type'),
-            'status' => Yii::t('app/admin', 'Status'),
-            'user_id' => Yii::t('app/admin', 'User ID'),
-            'object_id' => Yii::t('app/admin', 'Object ID'),
-            'created_at' => Yii::t('app/admin', 'Created At'),
-            'updated_at' => Yii::t('app/admin', 'Updated At'),
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', 'Username'),
+            'route' => Yii::t('app', 'Route'),
+            'data_before' => Yii::t('app', 'Data Before'),
+            'data_add' => Yii::t('app', 'Data Add'),
+            'type' => Yii::t('app', 'Type'),
+            'status' => Yii::t('app', 'Status'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'object_id' => Yii::t('app', 'Object ID'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 

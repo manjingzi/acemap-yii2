@@ -7,20 +7,20 @@ use common\models\Admin;
 
 class AdminChangePasswordForm extends Admin {
 
-    public $new_password;
-    public $confirm_password;
+    public $newPassword;
+    public $confirmPassword;
 
     public function rules() {
         return [
-            [['new_password', 'confirm_password'], 'required'],
-            [['new_password', 'confirm_password'], 'string', 'length' => [6, 20]],
-            ['confirm_password', 'compare', 'compareAttribute' => 'new_password', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
+            [['newPassword', 'confirmPassword'], 'required'],
+            [['newPassword', 'confirmPassword'], 'string', 'length' => [6, 20]],
+            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
         ];
     }
 
     public function changePassword() {
         if ($this->validate()) {
-            $this->setPassword($this->new_password);
+            $this->setPassword($this->newPassword);
             $this->updated_at = time();
             return $this->save(false);
         }

@@ -7,17 +7,17 @@ use common\models\Admin;
 
 class AdminChangePasswordForm extends Admin {
 
-    public $old_password;
-    public $new_password;
-    public $confirm_password;
+    public $oldPassword;
+    public $newPassword;
+    public $confirmPassword;
     private $_user;
 
     public function rules() {
         return [
-            [['old_password', 'new_password', 'confirm_password'], 'required'],
-            [['old_password', 'new_password', 'confirm_password'], 'string', 'length' => [6, 20]],
-            ['confirm_password', 'compare', 'compareAttribute' => 'new_password', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
-            ['old_password', 'validatePassword'],
+            [['oldPassword', 'newPassword', 'confirmPassword'], 'required'],
+            [['oldPassword', 'newPassword', 'confirmPassword'], 'string', 'length' => [6, 20]],
+            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
+            ['oldPassword', 'validatePassword'],
         ];
     }
 
@@ -25,7 +25,7 @@ class AdminChangePasswordForm extends Admin {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->old_password)) {
+            if (!$user || !$user->validatePassword($this->oldPassword)) {
                 $this->addError($attribute, Yii::t('app', 'Old password validation failed'));
             }
         }
@@ -34,7 +34,7 @@ class AdminChangePasswordForm extends Admin {
     public function changePassword() {
         if ($this->validate()) {
             $user = $this->getUser();
-            $user->setPassword($this->new_password);
+            $user->setPassword($this->newPassword);
             return $user->save(false);
         }
 

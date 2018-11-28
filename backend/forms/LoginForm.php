@@ -12,7 +12,7 @@ class LoginForm extends Model {
 
     public $username;
     public $password;
-    public $remember_me = true;
+    public $rememberMe = true;
     private $_user;
 
     public function rules() {
@@ -20,7 +20,7 @@ class LoginForm extends Model {
             [['username', 'password'], 'required'],
             [['username'], 'string', 'length' => [2, 20]],
             [['password'], 'string', 'length' => [6, 20]],
-            ['remember_me', 'boolean'],
+            ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
         ];
     }
@@ -29,15 +29,15 @@ class LoginForm extends Model {
         return [
             'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
-            'remember_me' => Yii::t('app', 'Remember me'),
+            'rememberMe' => Yii::t('app', 'Remember Me'),
         ];
     }
 
     public function validatePassword($attribute) {
         if (!$this->hasErrors()) {
             $data['status'] = Admin::STATUS_DELETED;
-            $data['login_name'] = $this->username;
-            $data['login_password'] = $this->password;
+            $data['username'] = $this->username;
+            $data['password'] = $this->password;
             $user = $this->getUser();
 
             if ($user) {
@@ -48,7 +48,7 @@ class LoginForm extends Model {
                     $user->updated_at = time();
                     $user->save(false);
                     $data['status'] = Admin::STATUS_ACTIVE;
-                    $data['login_password'] = '';
+                    $data['password'] = '';
                 } else {
                     $this->lockUser(); //判断是否锁定用户登录状态
                     $this->addError($attribute, Yii::t('app', 'Username or password is incorrect'));
@@ -63,7 +63,7 @@ class LoginForm extends Model {
 
     public function login() {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->remember_me ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
 
         return false;

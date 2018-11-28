@@ -7,7 +7,7 @@ use yii\web\IdentityInterface;
 use yii\base\NotSupportedException;
 
 /**
- * This is the model class for table "{{%admin}}".
+ * This is the model class for table "{{%user}}".
  *
  * @property string $id 自增ID
  * @property string $username 用户名
@@ -61,8 +61,10 @@ class User extends BaseModel implements IdentityInterface {
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
-            'newPassword' => Yii::t('app', 'New password'),
-            'confirmPassword' => Yii::t('app', 'Confirm password'),
+            //附加
+            'oldPassword' => Yii::t('app', 'Old Password'),
+            'newPassword' => Yii::t('app', 'New Password'),
+            'confirmPassword' => Yii::t('app', 'Confirm Password'),
         ];
     }
 
@@ -132,16 +134,6 @@ class User extends BaseModel implements IdentityInterface {
         $timestamp = (int) substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['email_reset_token_expire'];
         return $timestamp + $expire >= time();
-    }
-
-    public function beforeSave($insert) {
-        if (parent::beforeSave($insert)) {
-            $this->setPassword($this->password_hash);
-            $this->generateAuthKey();
-            $this->generatePasswordResetToken();
-            return true;
-        }
-        return false;
     }
 
 }

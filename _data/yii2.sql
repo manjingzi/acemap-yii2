@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-11-26 23:33:44
+Date: 2018-11-28 11:06:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -46,8 +46,8 @@ INSERT INTO `jj_admin` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z',
 DROP TABLE IF EXISTS `jj_admin_login_log`;
 CREATE TABLE `jj_admin_login_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
-  `login_name` varchar(20) NOT NULL DEFAULT '' COMMENT '登录名',
-  `login_password` varchar(20) NOT NULL DEFAULT '' COMMENT '登录密码',
+  `username` varchar(20) NOT NULL DEFAULT '' COMMENT '登录名',
+  `password` varchar(20) NOT NULL DEFAULT '' COMMENT '登录密码',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '登录状态 1成功 2失败',
   `login_ip` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录IP',
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',

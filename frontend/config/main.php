@@ -6,6 +6,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name' => 'AceMap',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
