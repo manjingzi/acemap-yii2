@@ -86,6 +86,10 @@ class ActiveForm extends YiiActiveForm {
         }
     }
 
+    public static function staticSubmitButton($isNew = true) {
+        return self::staticButton($isNew ? self::CREATE : self::UPDATE, true);
+    }
+
     /**
      * 链接按钮
      * @param type $type
@@ -252,6 +256,10 @@ class ActiveForm extends YiiActiveForm {
 
     public function selectStatus($model, $field = 'status') {
         return $this->dropDownList($field, $model, $model::getStatusText(), $model::getSearchParams($field), Yii::t('app', 'Select status'));
+    }
+
+    public function radioListStatus($model, $field = 'status') {
+        return $this->field($model, $field)->radioList($model::getStatusText(), ['itemOptions' => ['labelOptions' => ['class' => 'radio-inline']]]);
     }
 
     /**

@@ -21,7 +21,7 @@ if ($model->isNewRecord) {
             <?= ActiveForm::staticText(Yii::t('app', 'Username'), $model->username); ?>
         <?php } ?>
         <?= $form->text('email', $model) ?>
-        <?= $form->radioList('status', $model, Admin::getStatusText()) ?>
+        <?= $form->radioListStatus($model) ?>
     </div>
     <div class="box-footer">
         <?= ActiveForm::staticSubmitButton($model->isNewRecord) ?>

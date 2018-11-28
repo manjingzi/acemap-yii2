@@ -32,7 +32,7 @@ $keyword = Admin::getSearchParams('keyword');
 
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="pull-right"><?= ActiveForm::staticButton(ActiveForm::CREATE) ?></div>
+                <div class="pull-right"><?= ActiveForm::staticHrefButton(ActiveForm::CREATE) ?></div>
                 <h3 class="box-title"><?= $this->title ?></h3>
             </div>
             <div class="box-body">
