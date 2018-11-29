@@ -35,4 +35,6 @@ return [
     //验证结果
     'The rule class does not exist.' => '该规则类不存在。',
     'The rule class already exists.' => '该规则类已存在。',
+    'Search for available' => '搜索可用的',
+    'Search for assigned' => '搜索已分配'
 ];

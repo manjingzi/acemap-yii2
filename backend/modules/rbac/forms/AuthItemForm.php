@@ -5,6 +5,7 @@ namespace backend\modules\rbac\forms;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\base\Model;
+use yii\rbac\Item;
 
 class AuthitemForm extends Model {
 
@@ -66,6 +67,30 @@ class AuthitemForm extends Model {
         } else {
             throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist'));
         }
+    }
+
+    public function getItems() {
+        $available = []; //可用的
+        $auth = Yii::$app->authManager;
+        if ($this->type == Item::TYPE_ROLE) {
+            foreach (array_keys($auth->getRoles()) as $name) {
+                $available[$name] = 'role';
+            }
+        }
+        foreach (array_keys($auth->getPermissions()) as $name) {
+            $available[$name] = $name[0] == '/' ? 'route' : 'permission';
+        }
+
+        $assigned = []; //已分配
+        foreach ($auth->getChildren($this->name) as $item) {
+            $assigned[$item->name] = $item->type == Item::TYPE_ROLE ? 'role' : ($item->name[0] == '/' ? 'route' : 'permission');
+            unset($available[$item->name]);
+        }
+        unset($available[$this->name]);
+        return [
+            'available' => $available,
+            'assigned' => $assigned,
+        ];
     }
 
     public function isExistRuleClass($ruleName) {

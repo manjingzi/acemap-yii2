@@ -21,7 +21,7 @@ class RoleController extends BackendBaseController {
         if ($model->load(Yii::$app->request->post())) {
             if ($model->createRole()) {
                 $this->setSuccess();
-                return $this->refresh();
+                return $this->redirect(['view', 'id' => $model->name]);
             } else {
                 $this->setError($model);
             }
@@ -32,8 +32,10 @@ class RoleController extends BackendBaseController {
 
     public function actionView($id) {
         $model = new AuthItemUpdateForm(['name' => $id]);
-
-        return $this->render('view', ['model' => $model]);
+        $data = $model->getItems();
+        $data['row'] = $model->findRoleModel();
+        print_r($data);exit;
+        return $this->render('view', compact($data));
     }
 
     public function actionUpdate($id) {
