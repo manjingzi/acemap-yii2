@@ -13,29 +13,31 @@ class AuthItemCreateForm extends AuthItemForm {
             [['name'], 'required'],
             ['name', 'validateName'],
             [['rule_name'], 'string', 'max' => 64],
-            ['rule_name', 'validateRuleName', 'skipOnEmpty' => true],
+            ['rule_name', 'validateRuleClass', 'skipOnEmpty' => true],
             [['description'], 'string', 'max' => 100],
         ];
     }
 
     private function _create($type) {
         if ($this->validate()) {
-            $auth = Yii::$app->authManager;
-            if (Item::TYPE_ROLE == $type) {
-                $obj = $auth->createRole($this->name);
-            } else {
-                $obj = $auth->createPermission($this->name);
-            }
-            if ($this->rule_name) {
-                $this->checkRuleName($this->rule_name);
-                $obj->ruleName = $this->rule_name;
-                $rule = new $this->rule_name;
-                $auth->add($rule);
-            }
+            //模型中事务编写
+            return Yii::$app->db->transaction(function() use ($type) {
+                        $auth = Yii::$app->authManager;
+                        if (Item::TYPE_ROLE == $type) {
+                            $obj = $auth->createRole($this->name);
+                        } else {
+                            $obj = $auth->createPermission($this->name);
+                        }
+                        if ($this->rule_name) {
+                            $obj->ruleName = $this->rule_name;
+                            $rule = new $this->rule_name;
+                            $auth->add($rule);
+                        }
 
-            $obj->description = $this->description;
+                        $obj->description = $this->description;
 
-            return $auth->add($obj);
+                        return $auth->add($obj);
+                    });
         }
 
         return false;

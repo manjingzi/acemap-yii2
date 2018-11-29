@@ -11,6 +11,7 @@ class AuthitemForm extends Model {
     public $name;
     public $description;
     public $rule_name;
+    public $old_rule_name;
 
     public function attributeLabels() {
         return [
@@ -31,9 +32,10 @@ class AuthitemForm extends Model {
         }
     }
 
-    public function validateRuleName($attribute) {
+    public function validateRuleClass($attribute) {
         if (!$this->hasErrors()) {
-            if (!$this->isExistRuleName($this->rule_name)) {
+            //检测是否合法
+            if (!$this->isExistRuleClass($this->rule_name)) {
                 $this->addError($attribute, Yii::t('app/error', 'The rule class does not exist.'));
             }
         }
@@ -66,12 +68,12 @@ class AuthitemForm extends Model {
         }
     }
 
-    public function isExistRuleName($ruleName) {
-        return class_exists('common\rules\\' . $ruleName);
+    public function isExistRuleClass($ruleName) {
+        return class_exists($ruleName);
     }
 
-    public function checkRuleName($ruleName) {
-        if ($this->isExistRuleName($ruleName)) {
+    public function checkRuleClass($ruleName) {
+        if (!$this->isExistRuleClass($ruleName)) {
             throw new NotFoundHttpException(Yii::t('app/error', 'The rule class does not exist.'));
         }
     }

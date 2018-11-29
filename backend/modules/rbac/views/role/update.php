@@ -1,6 +1,7 @@
 <?php
 
 use backend\widgets\ActiveForm;
+use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Update');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' => ['index']];
@@ -16,6 +17,8 @@ $data = $model->findRoleModel();
         <?= $form->staticText(Yii::t('app', 'Name'), $data->name) ?>
         <?= $form->text('description', $model, $data->description) ?>
         <?= $form->text('rule_name', $model, $data->ruleName) ?>
+        <!--为了验证是否删除了原来的验证规则-->
+        <?= Html::activeHiddenInput($model, 'old_rule_name', ['value' => $data->ruleName]) ?>
     </div>
     <div class="box-footer">
         <?= ActiveForm::staticSubmitButton(false) ?>
