@@ -17,7 +17,7 @@ class ChangePasswordForm extends User {
             [['oldPassword', 'newPassword', 'confirmPassword'], 'required'],
             [['oldPassword', 'newPassword', 'confirmPassword'], 'trim'],
             [['oldPassword', 'newPassword', 'confirmPassword'], 'string', 'length' => [6, 20]],
-            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
+            ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app/error', 'Please enter a valid new password and confirmation password')],
             ['oldPassword', 'validatePassword'],
         ];
     }
@@ -27,7 +27,7 @@ class ChangePasswordForm extends User {
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->oldPassword)) {
-                $this->addError($attribute, Yii::t('app', 'Old password validation failed'));
+                $this->addError($attribute, Yii::t('app/error', 'Old password validation failed'));
             }
         }
     }

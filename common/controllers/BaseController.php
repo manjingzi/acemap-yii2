@@ -29,11 +29,11 @@ class BaseController extends Controller {
             }
         }
 
-        Yii::$app->getSession()->setFlash('error', $msg ? $msg : Yii::t('app', 'Operation result failed'));
+        Yii::$app->getSession()->setFlash('error', $msg ? $msg : Yii::t('app/error', 'Operation result failed'));
     }
 
     protected function setSuccess($msg = null) {
-        Yii::$app->getSession()->setFlash('success', $msg ? $msg : Yii::t('app', 'Successful operation result'));
+        Yii::$app->getSession()->setFlash('success', $msg ? $msg : Yii::t('app/error', 'Successful operation result'));
     }
 
     /**
@@ -66,11 +66,11 @@ class BaseController extends Controller {
                     return false;
                 }
             } else {
-                $this->setError(Yii::t('app', 'New data validation failed'), $model);
+                $this->setError(Yii::t('app/error', 'New data validation failed'), $model);
                 return false;
             }
         } else {
-            $this->setError(null, Yii::t('app', 'Please check if the model name in the template is correct'));
+            $this->setError(null, Yii::t('app/error', 'Please check if the model name in the template is correct'));
             return false;
         }
     }
@@ -103,11 +103,11 @@ class BaseController extends Controller {
                     return false;
                 }
             } else {
-                $this->setError(Yii::t('app', 'New data validation failed'), $model);
+                $this->setError(Yii::t('app/error', 'New data validation failed'), $model);
                 return false;
             }
         } else {
-            $this->setError(null, Yii::t('app', 'Please check if the model name in the template is correct'));
+            $this->setError(null, Yii::t('app/error', 'Please check if the model name in the template is correct'));
             return false;
         }
     }
@@ -142,7 +142,7 @@ class BaseController extends Controller {
             $this->setSuccess();
             return true;
         } else {
-            $this->setError(Yii::t('app', 'Parameter error'));
+            $this->setError(Yii::t('app/error', 'Parameter error'));
             return false;
         }
     }

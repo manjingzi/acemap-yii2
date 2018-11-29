@@ -85,13 +85,13 @@ class UserController extends BackendBaseController {
         if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist'));
         }
     }
 
     protected function checkSuperUser($id) {
         if (User::checkSuperUser($id)) {
-            $this->setError(null, Yii::t('app', 'Permission denied'));
+            $this->setError(null, Yii::t('app/error', 'Permission denied'));
             return $this->goHome();
         }
     }

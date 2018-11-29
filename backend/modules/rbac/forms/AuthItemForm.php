@@ -36,7 +36,7 @@ class AuthitemForm extends Model {
         if (!$this->hasErrors()) {
             //检测是否合法
             if (!$this->isExistRuleClass($this->rule_name)) {
-                $this->addError($attribute, Yii::t('app/error', 'The rule class does not exist.'));
+                $this->addError($attribute, Yii::t('app/rbac', 'The rule class does not exist.'));
             }
         }
     }
@@ -53,7 +53,7 @@ class AuthitemForm extends Model {
         if ($model !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist'));
         }
     }
 
@@ -64,7 +64,7 @@ class AuthitemForm extends Model {
         if ($model !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist'));
         }
     }
 
@@ -74,7 +74,7 @@ class AuthitemForm extends Model {
 
     public function checkRuleClass($ruleName) {
         if (!$this->isExistRuleClass($ruleName)) {
-            throw new NotFoundHttpException(Yii::t('app/error', 'The rule class does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app/rbac', 'The rule class does not exist.'));
         }
     }
 

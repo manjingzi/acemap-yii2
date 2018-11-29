@@ -9,7 +9,7 @@ $this->title = $message;
     <h2 class="headline text-red"><?= $exception->statusCode ?></h2>
     <div class="error-content">
         <h3><i class="fa fa-warning text-red"></i> <?= $message ?></h3>
-        <p><?= Yii::t('app/error', 'We will work on fixing that right away. you may try using the search form.'); ?></p>
+        <p><?= Yii::t('app/error', 'We will work on fixing that right away. you may try using the search form'); ?></p>
         <form class="search-form">
             <div class="input-group">
                 <input type="text" name="search" class="form-control" placeholder="Search">

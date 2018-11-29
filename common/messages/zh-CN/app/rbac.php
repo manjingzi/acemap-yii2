@@ -32,4 +32,7 @@ return [
     'Role' => '角色',
     'Rule' => '规则',
     'Menu' => '菜单',
+    //验证结果
+    'The rule class does not exist.' => '该规则类不存在。',
+    'The rule class already exists.' => '该规则类已存在。',
 ];

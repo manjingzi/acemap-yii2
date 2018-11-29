@@ -22,7 +22,7 @@ class AuthItemUpdateForm extends AuthitemForm {
         if (empty($this->old_rule_name) && $this->rule_name) {
             $auth = Yii::$app->authManager;
             if ($auth->getRule($this->rule_name)) {
-                $this->addError($attribute, Yii::t('app/error', 'The rule class already exists.'));
+                $this->addError($attribute, Yii::t('app/rbac', 'The rule class already exists.'));
             }
         }
     }
