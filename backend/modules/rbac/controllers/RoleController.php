@@ -9,8 +9,6 @@ use backend\modules\rbac\forms\AuthItemUpdateForm;
 
 class RoleController extends BaseController {
 
-    public $enableCsrfValidation = false;
-
     public function actionIndex() {
         $auth = Yii::$app->authManager;
         $rows = $auth->getRoles();
@@ -42,7 +40,7 @@ class RoleController extends BaseController {
         $model = new AuthItemUpdateForm(['name' => $id]);
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->updateAuthItem()) {
+            if ($model->updateRole()) {
                 $this->setSuccess();
                 return $this->refresh();
             } else {

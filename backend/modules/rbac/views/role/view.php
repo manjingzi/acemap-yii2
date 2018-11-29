@@ -5,6 +5,7 @@ use backend\widgets\ActiveForm;
 $this->title = Yii::t('app', 'View');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' => ['index']];
 $data = $model->findRoleModel();
+//$childRoles = $model->getChildRoles();
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
@@ -17,6 +18,9 @@ $data = $model->findRoleModel();
             <?= ActiveForm::staticText(Yii::t('app/rbac', 'Rule Name'), $data->ruleName) ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Created At'), date('Y-m-d H:i:s', $data->createdAt)) ?>
             <?= ActiveForm::staticText(Yii::t('app', 'Updated At'), date('Y-m-d H:i:s', $data->updatedAt)) ?>
+        </div>
+        <div class="box-body">
+
         </div>
         <div class="box-footer">
             <?= ActiveForm::staticHrefButton(ActiveForm::UPDATE_DELETE, $data->name) ?>
