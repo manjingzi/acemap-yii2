@@ -17,7 +17,7 @@ class AdminSearch extends Admin {
     public function rules() {
         return [
             ['pagesize', 'default', 'value' => 10],
-            ['keyword', 'filter', 'filter' => 'trim'],
+            [['keyword'], 'trim'],
             [['pagesize', 'status'], 'integer'],
             [['start_time', 'end_time'], 'date']
         ];

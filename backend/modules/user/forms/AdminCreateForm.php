@@ -16,6 +16,7 @@ class AdminCreateForm extends Admin {
     public function rules() {
         return [
             [['username', 'email', 'newPassword', 'confirmPassword'], 'required'],
+            [['username', 'email', 'newPassword', 'confirmPassword'], 'trim'],
             [['username'], 'string', 'length' => [2, 20]],
             [['email'], 'string', 'max' => 50],
             [['email'], 'email'],

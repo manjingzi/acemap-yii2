@@ -18,6 +18,7 @@ class LoginForm extends Model {
     public function rules() {
         return [
             [['username', 'password'], 'required'],
+            [['username', 'password'], 'trim'],
             [['username'], 'string', 'length' => [2, 20]],
             [['password'], 'string', 'length' => [6, 20]],
             ['rememberMe', 'boolean'],

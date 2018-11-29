@@ -3,19 +3,18 @@
 namespace backend\modules\rbac\controllers;
 
 use Yii;
-use common\models\AuthItem;
 use backend\controllers\BaseController;
-use backend\modules\rbac\search\AuthItemSearch;
 use backend\modules\rbac\forms\AuthItemCreateForm;
 use backend\modules\rbac\forms\AuthItemUpdateForm;
 
 class RoleController extends BaseController {
 
-    public function actionIndex() {
-        $searchModel = new AuthItemSearch(['type' => 1]);
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    public $enableCsrfValidation = false;
 
-        return $this->render('index', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
+    public function actionIndex() {
+        $auth = Yii::$app->authManager;
+        $rows = $auth->getRoles();
+        return $this->render('index', ['rows' => $rows]);
     }
 
     public function actionCreate() {
@@ -34,13 +33,13 @@ class RoleController extends BaseController {
     }
 
     public function actionView($id) {
-        $model = AuthItemUpdateForm::findRoleModel($id);
+        $model = new AuthItemUpdateForm(['name' => $id]);
 
         return $this->render('view', ['model' => $model]);
     }
 
     public function actionUpdate($id) {
-        $model = AuthItemUpdateForm::findRoleModel($id);
+        $model = new AuthItemUpdateForm(['name' => $id]);
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->updateAuthItem()) {

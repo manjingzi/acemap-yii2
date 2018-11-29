@@ -9,6 +9,7 @@ class AdminUpdateForm extends Admin {
     public function rules() {
         return [
             [['email', 'status'], 'required'],
+            [['email', 'status'], 'trim'],
             [['email'], 'string', 'max' => 50],
             [['email'], 'email'],
             [['email'], 'unique'],

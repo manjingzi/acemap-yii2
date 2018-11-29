@@ -4,9 +4,10 @@ namespace backend\modules\rbac\forms;
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use common\models\AuthItem;
+use yii\base\Model;
+use yii\rbac\Role;
 
-class AuthItemUpdateForm extends AuthItem {
+class AuthItemUpdateForm extends Model {
 
     public $name;
     public $description;
@@ -14,42 +15,60 @@ class AuthItemUpdateForm extends AuthItem {
 
     public function rules() {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'length' => [1, 64]]
+            [['rule_name'], 'string', 'max' => 64],
+            [['rule_name', 'description'], 'trim'],
+            [['description'], 'string', 'max' => 100],
+        ];
+    }
+
+    public function attributeLabels() {
+        return [
+            'name' => Yii::t('app', 'Name'),
+            'description' => Yii::t('app', 'Description'),
+            'rule_name' => Yii::t('app/rbac', 'Rule Name'),
+            'data' => Yii::t('app/rbac', 'Data'),
         ];
     }
 
     public function updateAuthItem() {
-        if ($this->validate()) {
+        if (Yii::$app->request->isPost) {
             $auth = Yii::$app->authManager;
-            $obj = (object) [];
-            $obj->rule_name = $this->rule_name;
+            $obj = new Role();
+            $obj->name = $this->name;
             $obj->description = $this->description;
+            if ($this->rule_name) {
+                if (class_exists('common\rules\\' . $this->rule_name)) {
+                    $obj->ruleName = $this->rule_name;
+                } else {
+                    throw new NotFoundHttpException(Yii::t('app/error', 'The rule class does not exist.'));
+                }
+            }
+
             return $auth->update($this->name, $obj);
         }
 
         return false;
     }
 
-    public static function findRoleModel($id) {
+    public function findRoleModel() {
         $auth = Yii::$app->authManager;
-        $model = $auth->getRole($id);
+        $model = $auth->getRole($this->name);
 
         if ($model !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist.'));
         }
     }
 
-    public static function findPermissionModel($id) {
+    public function findPermissionModel() {
         $auth = Yii::$app->authManager;
-        $model = $auth->getPermission($id);
+        $model = $auth->getPermission($this->name);
 
         if ($model !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('app/error', 'The requested page does not exist.'));
         }
     }
 

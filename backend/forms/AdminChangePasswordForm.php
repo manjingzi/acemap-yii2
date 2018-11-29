@@ -15,6 +15,7 @@ class AdminChangePasswordForm extends Admin {
     public function rules() {
         return [
             [['oldPassword', 'newPassword', 'confirmPassword'], 'required'],
+            [['oldPassword', 'newPassword', 'confirmPassword'], 'trim'],
             [['oldPassword', 'newPassword', 'confirmPassword'], 'string', 'length' => [6, 20]],
             ['confirmPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('app', 'Please enter a valid new password and confirmation password')],
             ['oldPassword', 'validatePassword'],

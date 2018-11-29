@@ -3,38 +3,11 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use common\extensions\Util;
 use backend\forms\LoginForm;
 use backend\forms\AdminChangePasswordForm;
 
 class SiteController extends BaseController {
-
-    public function behaviors() {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'lang', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['index', 'logout', 'clear-cache', 'change-password'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
 
     public function actionIndex() {
         return $this->render('index');
@@ -89,11 +62,7 @@ class SiteController extends BaseController {
         $exception = Yii::$app->errorHandler->exception;
         if ($exception !== null) {
             $this->layout = 'error';
-            if (in_array($exception->statusCode, [404, 500])) {
-                return $this->render($exception->statusCode, ['exception' => $exception]);
-            } else {
-                return $this->render('error', ['exception' => $exception]);
-            }
+            return $this->render('error', ['exception' => $exception]);
         }
     }
 

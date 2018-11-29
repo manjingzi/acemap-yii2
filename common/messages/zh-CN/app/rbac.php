@@ -6,7 +6,6 @@ return [
     'Assigned' => '分配',
     'Roles' => '角色列表',
     'Create Role' => '创建角色',
-    'Description' => '描述',
     'Rule Name' => '规则名称',
     'Data' => '数据',
     'Update Role' => '更新角色',
