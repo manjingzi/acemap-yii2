@@ -17,6 +17,10 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            //'defaultRoles' => ['guest'],
+        ],
         'i18n' => require(__DIR__ . '/i18n_config.php'),
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

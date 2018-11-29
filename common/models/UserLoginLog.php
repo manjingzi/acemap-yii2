@@ -6,7 +6,7 @@ use Yii;
 use common\extensions\Util;
 
 /**
- * This is the model class for table "{{%admin_login_log}}".
+ * This is the model class for table "{{%user_login_log}}".
  *
  * @property string $id 自增ID
  * @property string $username 登录名
@@ -15,13 +15,13 @@ use common\extensions\Util;
  * @property string $login_ip 最后登录IP
  * @property string $created_at 创建时间
  */
-class AdminLoginLog extends BaseModel {
+class UserLoginLog extends BaseModel {
 
     /**
      * {@inheritdoc}
      */
     public static function tableName() {
-        return '{{%admin_login_log}}';
+        return '{{%user_login_log}}';
     }
 
     /**
@@ -49,7 +49,7 @@ class AdminLoginLog extends BaseModel {
     }
 
     public static function add($data) {
-        $model = new AdminLoginLog();
+        $model = new UserLoginLog();
         $model->attributes = $data;
         $model->created_at = time();
         $model->login_ip = Util::itoa(Yii::$app->getRequest()->getUserIP());

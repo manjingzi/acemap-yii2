@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\forms;
+namespace common\forms;
 
 use Yii;
 use yii\base\Model;
-use common\models\Admin;
-use common\models\AdminLoginLog;
+use common\models\User;
+use common\models\UserLoginLog;
 use common\models\SystemLog;
 
 class LoginForm extends Model {
@@ -36,19 +36,19 @@ class LoginForm extends Model {
 
     public function validatePassword($attribute) {
         if (!$this->hasErrors()) {
-            $data['status'] = Admin::STATUS_DELETED;
+            $data['status'] = User::STATUS_DELETED;
             $data['username'] = $this->username;
             $data['password'] = $this->password;
             $user = $this->getUser();
 
             if ($user) {
-                if ($user->status == Admin::STATUS_DELETED) {
+                if ($user->status == User::STATUS_DELETED) {
                     $this->addError($attribute, Yii::t('app', 'The account is locked. Please contact the administrator'));
                 }
                 if ($user->validatePassword($this->password)) {
                     $user->updated_at = time();
                     $user->save(false);
-                    $data['status'] = Admin::STATUS_ACTIVE;
+                    $data['status'] = User::STATUS_ACTIVE;
                     $data['password'] = '';
                 } else {
                     $this->lockUser(); //判断是否锁定用户登录状态
@@ -58,7 +58,7 @@ class LoginForm extends Model {
                 $this->addError($attribute, Yii::t('app', 'Username or password is incorrect'));
             }
 
-            AdminLoginLog::add($data);
+            UserLoginLog::add($data);
         }
     }
 
@@ -72,24 +72,24 @@ class LoginForm extends Model {
 
     protected function getUser() {
         if ($this->_user === null) {
-            $this->_user = Admin::existUsername($this->username);
+            $this->_user = User::existUsername($this->username);
         }
 
         return $this->_user;
     }
 
     private function lockUser() {
-        $cache_name = 'admin_login_' . $this->username;
-        $count = (int) Admin::getCache($cache_name);
+        $cache_name = 'user_login_' . $this->username;
+        $count = (int) User::getCache($cache_name);
         if ($count >= Yii::$app->params['admin_login_max_count']) {
             SystemLog::add($this->username . ' locked', $this->username); //加入系统日志
             $model = $this->getUser();
-            $model->status = Admin::STATUS_DELETED;
+            $model->status = User::STATUS_DELETED;
             if ($model->save(false)) {
-                Admin::delCache($cache_name);
+                User::delCache($cache_name);
             }
         } else {
-            Admin::setCache($cache_name, $count + 1);
+            User::setCache($cache_name, $count + 1);
         }
     }
 

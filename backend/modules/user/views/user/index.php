@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Admin;
+use common\models\User;
 use common\extensions\Util;
 use backend\widgets\GridView;
 use backend\widgets\SearchForm;
@@ -8,7 +8,7 @@ use backend\widgets\ActiveForm;
 
 $this->title = Yii::t('app', 'List');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
-$keyword = Admin::getSearchParams('keyword');
+$keyword = User::getSearchParams('keyword');
 ?>
 <div class="row">
     <div class="col-xs-12">
@@ -61,7 +61,7 @@ $keyword = Admin::getSearchParams('keyword');
                             'attribute' => 'status',
                             'format' => 'raw',
                             'value' => function($model) {
-                                return Admin::getStatusIcon($model->status);
+                                return User::getStatusIcon($model->status);
                             },
                         ],
                         [
@@ -74,10 +74,10 @@ $keyword = Admin::getSearchParams('keyword');
                             'template' => '{delete} {update} {view}',
                             'visibleButtons' => [
                                 'update' => function ($model) {
-                                    return !Admin::checkSuperUser($model->id);
+                                    return !User::checkSuperUser($model->id);
                                 },
                                 'delete' => function ($model) {
-                                    return !Admin::checkSuperUser($model->id);
+                                    return !User::checkSuperUser($model->id);
                                 },
                             ]
                         ],

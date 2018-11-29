@@ -3,11 +3,11 @@
 namespace backend\modules\rbac\controllers;
 
 use Yii;
-use backend\controllers\BaseController;
+use backend\controllers\BackendBaseController;
 use backend\modules\rbac\search\AuthItemSearch;
 use backend\modules\rbac\forms\AuthItemCreateForm;
 
-class PermissionController extends BaseController {
+class PermissionController extends BackendBaseController {
 
     public function actionIndex() {
         $searchModel = new AuthItemSearch(['type' => 2]);

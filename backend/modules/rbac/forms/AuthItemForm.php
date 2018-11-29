@@ -21,6 +21,24 @@ class AuthitemForm extends Model {
         ];
     }
 
+    public function validateName($attribute) {
+        if (!$this->hasErrors()) {
+            $auth = Yii::$app->authManager;
+            $model = $auth->getRole($this->name);
+            if ($model) {
+                $this->addError($attribute, Yii::t('yii', '{attribute} "{value}" has already been taken.', ['attribute' => Yii::t('app', 'Name')]));
+            }
+        }
+    }
+
+    public function validateRuleName($attribute) {
+        if (!$this->hasErrors()) {
+            if (!$this->isExistRuleName($this->rule_name)) {
+                $this->addError($attribute, Yii::t('app/error', 'The rule class does not exist.'));
+            }
+        }
+    }
+
     public function getChildRoles() {
         $auth = Yii::$app->authManager;
         return $auth->getChildRoles($this->name);
@@ -48,8 +66,12 @@ class AuthitemForm extends Model {
         }
     }
 
-    public function checkRuleClass($ruleName) {
-        if (!class_exists('common\rules\\' . $ruleName)) {
+    public function isExistRuleName($ruleName) {
+        return class_exists('common\rules\\' . $ruleName);
+    }
+
+    public function checkRuleName($ruleName) {
+        if ($this->isExistRuleName($ruleName)) {
             throw new NotFoundHttpException(Yii::t('app/error', 'The rule class does not exist.'));
         }
     }

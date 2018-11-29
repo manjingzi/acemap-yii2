@@ -2,9 +2,9 @@
 
 namespace backend\modules\user\forms;
 
-use common\models\Admin;
+use common\models\User;
 
-class AdminUpdateForm extends Admin {
+class UserUpdateForm extends User {
 
     public function rules() {
         return [
@@ -17,7 +17,7 @@ class AdminUpdateForm extends Admin {
         ];
     }
 
-    public function updateAdmin() {
+    public function updateUser() {
         if ($this->validate()) {
             $this->updated_at = time();
             return $this->save(false);

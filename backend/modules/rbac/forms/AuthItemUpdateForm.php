@@ -3,7 +3,6 @@
 namespace backend\modules\rbac\forms;
 
 use Yii;
-use yii\web\NotFoundHttpException;
 use yii\rbac\Role;
 use yii\rbac\Permission;
 
@@ -11,14 +10,15 @@ class AuthItemUpdateForm extends AuthitemForm {
 
     public function rules() {
         return [
-            [['rule_name'], 'string', 'max' => 64],
             [['rule_name', 'description'], 'trim'],
+            [['rule_name'], 'string', 'max' => 64],
+            ['rule_name', 'validateRuleName', 'skipOnEmpty' => true],
             [['description'], 'string', 'max' => 100],
         ];
     }
 
     private function _update($type) {
-        if (Yii::$app->request->isPost) {
+        if ($this->validate()) {
             $auth = Yii::$app->authManager;
             if (Role::TYPE_ROLE == $type) {
                 $obj = new Role();
@@ -26,7 +26,7 @@ class AuthItemUpdateForm extends AuthitemForm {
                 $obj = new Permission();
             }
             if ($this->rule_name) {
-                $this->checkRuleClass($this->rule_name);
+                $this->checkRuleName($this->rule_name);
                 $obj->ruleName = $this->rule_name;
             }
 

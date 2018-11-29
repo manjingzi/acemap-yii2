@@ -4,26 +4,26 @@ namespace backend\modules\user\controllers;
 
 use Yii;
 use yii\web\NotFoundHttpException;
-use common\models\Admin;
-use backend\controllers\BaseController;
-use backend\modules\user\search\AdminSearch;
-use backend\modules\user\forms\AdminChangePasswordForm;
-use backend\modules\user\forms\AdminCreateForm;
-use backend\modules\user\forms\AdminUpdateForm;
+use common\models\User;
+use backend\controllers\BackendBaseController;
+use backend\modules\user\search\UserSearch;
+use backend\modules\user\forms\UserChangePasswordForm;
+use backend\modules\user\forms\UserCreateForm;
+use backend\modules\user\forms\UserUpdateForm;
 
-class AdminController extends BaseController {
+class UserController extends BackendBaseController {
 
     public function actionIndex() {
-        $searchModel = new AdminSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
     }
 
     public function actionCreate() {
-        $model = new AdminCreateForm();
+        $model = new UserCreateForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->createAdmin()) {
+            if ($model->createUser()) {
                 $this->setSuccess();
                 return $this->refresh();
             } else {
@@ -42,10 +42,10 @@ class AdminController extends BaseController {
 
     public function actionUpdate($id) {
         $this->checkSuperUser($id);
-        $model = AdminUpdateForm::findOne($id);
+        $model = UserUpdateForm::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->updateAdmin()) {
+            if ($model->updateUser()) {
                 $this->setSuccess();
                 return $this->refresh();
             } else {
@@ -58,7 +58,7 @@ class AdminController extends BaseController {
 
     public function actionChangePassword($id) {
         $this->checkSuperUser($id);
-        $model = AdminChangePasswordForm::findOne($id);
+        $model = UserChangePasswordForm::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->changePassword()) {
@@ -76,13 +76,13 @@ class AdminController extends BaseController {
         $this->checkSuperUser($id);
 
         if (Yii::$app->request->isPost) {
-            $this->commonUpdateByField(Admin::className(), ['id' => $id], ['status' => Admin::STATUS_DELETED, 'updated_at' => time()]);
+            $this->commonUpdateByField(User::className(), ['id' => $id], ['status' => User::STATUS_DELETED, 'updated_at' => time()]);
             return $this->redirect(Yii::$app->request->referrer);
         }
     }
 
     protected function findModel($id) {
-        if (($model = Admin::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -90,7 +90,7 @@ class AdminController extends BaseController {
     }
 
     protected function checkSuperUser($id) {
-        if (Admin::checkSuperUser($id)) {
+        if (User::checkSuperUser($id)) {
             $this->setError(null, Yii::t('app', 'Permission denied'));
             return $this->goHome();
         }

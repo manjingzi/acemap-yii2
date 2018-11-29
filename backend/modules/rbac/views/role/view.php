@@ -9,21 +9,23 @@ $data = $model->findRoleModel();
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
+        <?= ActiveForm::staticHrefButton(ActiveForm::CREATE_UPDATE_DELETE, $data->name) ?>
         <h3 class="box-title"><?= $this->title ?></h3>
     </div>
-    <div class="form-horizontal">
-        <div class="box-body">
+    <div class="box-body">
+        <div class="form-horizontal">
             <?= ActiveForm::staticText(Yii::t('app', 'Name'), $data->name) ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Description'), $data->description) ?>
-            <?= ActiveForm::staticText(Yii::t('app/rbac', 'Rule Name'), $data->ruleName) ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Created At'), date('Y-m-d H:i:s', $data->createdAt)) ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Updated At'), date('Y-m-d H:i:s', $data->updatedAt)) ?>
+            <?= ActiveForm::staticText(Yii::t('app', 'Description'), $data->description ?: Yii::t('yii', '(not set)')) ?>
+            <?= ActiveForm::staticText(Yii::t('app/rbac', 'Rule Name'), $data->ruleName ?: Yii::t('yii', '(not set)')) ?>
         </div>
-        <div class="box-body">
-
-        </div>
-        <div class="box-footer">
-            <?= ActiveForm::staticHrefButton(ActiveForm::UPDATE_DELETE, $data->name) ?>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-5">
+                <input class="form-control" placeholder="Search for available">
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5"></div>
         </div>
     </div>
 </div>

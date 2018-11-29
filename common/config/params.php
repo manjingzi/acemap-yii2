@@ -6,7 +6,6 @@ $config['site_name_zh-CN'] = 'AceMap'; //中文网站名称
 $config['site_url'] = 'http://www.acemap.info'; //网站URL
 $config['admin_url'] = 'http://admin.acemap.info'; //后台管理URL
 $config['admin_super_user_id'] = [1, 2]; //超级管理员不受权限管理
-$config['admin_login_max_count'] = 2; //管理员登录错误默认数量，之后会被锁定，只能联系管理员去后台重置密码
 $config['user_login_max_count'] = 5; //用户登录错误默认数量，之后会被锁定，只能通过重置密码
 $config['user_name_field'] = 'username'; //用户名在用户表中对应的字段名，以便在发送邮件时替换，如果字段不存在将使用邮件地址替换
 $config['email_reset_token_expire'] = 24 * 3600; //邮箱重置密码有效期默认1天

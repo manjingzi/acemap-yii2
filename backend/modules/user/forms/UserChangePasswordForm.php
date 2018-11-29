@@ -3,9 +3,9 @@
 namespace backend\modules\user\forms;
 
 use Yii;
-use common\models\Admin;
+use common\models\User;
 
-class AdminChangePasswordForm extends Admin {
+class UserChangePasswordForm extends User {
 
     public $newPassword;
     public $confirmPassword;

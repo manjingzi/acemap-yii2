@@ -3,11 +3,11 @@
 namespace backend\modules\rbac\controllers;
 
 use Yii;
-use backend\controllers\BaseController;
+use backend\controllers\BackendBaseController;
 use backend\modules\rbac\forms\AuthItemCreateForm;
 use backend\modules\rbac\forms\AuthItemUpdateForm;
 
-class RoleController extends BaseController {
+class RoleController extends BackendBaseController {
 
     public function actionIndex() {
         $auth = Yii::$app->authManager;

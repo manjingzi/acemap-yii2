@@ -1,11 +1,11 @@
 <?php
 
-namespace backend\forms;
+namespace common\forms;
 
 use Yii;
-use common\models\Admin;
+use common\models\User;
 
-class AdminChangePasswordForm extends Admin {
+class ChangePasswordForm extends User {
 
     public $oldPassword;
     public $newPassword;

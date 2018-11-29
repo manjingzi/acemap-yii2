@@ -3,9 +3,9 @@
 namespace backend\modules\user\forms;
 
 use Yii;
-use common\models\Admin;
+use common\models\User;
 
-class AdminCreateForm extends Admin {
+class UserCreateForm extends User {
 
     public $username;
     public $newPassword;
@@ -28,9 +28,9 @@ class AdminCreateForm extends Admin {
         ];
     }
 
-    public function createAdmin() {
+    public function createUser() {
         if ($this->validate()) {
-            $user = new Admin();
+            $user = new User();
             $user->username = $this->username;
             $user->email = $this->email;
             $user->status = self::STATUS_ACTIVE;

@@ -102,14 +102,14 @@ class ActiveForm extends YiiActiveForm {
      */
     public static function staticHrefButton($type, $id = null) {
         $html = '';
-        $create = Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create', 'id' => $id]), ['class' => 'btn btn-success']) . ' ';
+        $create = Html::a('<i class="fa fa-plus"></i> ' . Yii::t('app', 'Create'), Url::to(['create', 'id' => $id]), ['class' => 'btn btn-success']);
         $update = Html::a('<i class="fa fa-edit"></i> ' . Yii::t('app', 'Update'), Url::to(['update', 'id' => $id]), ['class' => 'btn btn-primary']) . ' ';
         $password = Html::a('<i class="fa fa-lock"></i> ' . Yii::t('app', 'Change password'), Url::to(['change-password', 'id' => $id]), ['class' => 'btn btn-warning']) . ' ';
         $delete = Html::a('<i class="fa fa-trash"></i> ' . Yii::t('app', 'Delete'), Url::to(['delete', 'id' => $id]), [
                     'class' => 'btn btn-danger',
                     'data-confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                     'data-method' => 'post',
-        ]);
+                ]) . ' ';
 
         $reset = Html::a(Yii::t('app', 'Reset'), Url::to(['index']), ['class' => 'btn btn-default']);
 
@@ -130,21 +130,21 @@ class ActiveForm extends YiiActiveForm {
                 $html = $reset;
                 break;
             case self::CREATE_UPDATE:
-                $html = $create . $update;
+                $html = $update . $create;
                 break;
             case self::CREATE_DELETE:
-                $html = $create . $delete;
+                $html = $delete . $create;
                 break;
             case self::UPDATE_DELETE:
-                $html = $update . $delete;
+                $html = $delete . $update;
                 break;
             case self::CREATE_UPDATE_DELETE:
-                $html = $create . $update . $delete;
+                $html = $delete . $update . $create;
                 break;
         }
 
         if ($type > self::RESET) {
-            return '<div class="form-group"><div class="col-md-10 col-md-offset-2">' . $html . '</div>';
+            return '<div class="pull-right">' . $html . '</div>';
         }
 
         return $html;

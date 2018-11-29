@@ -27,8 +27,8 @@ $bundle = AppAsset::register($this);
                         <li class="user-header">
                             <img src="<?= $bundle->baseUrl ?>/static/img/avatar1.png" class="img-circle">
                             <p>
-                                <?= Yii::$app->user->identity->username ?>
-                                <small><?= Yii::$app->user->identity->email ?></small>
+                                <?= isset(Yii::$app->user->identity->username) ?: Yii::t('app', 'Guest') ?>
+                                <small><?= isset(Yii::$app->user->identity->email) ?: Yii::t('yii', 'Login Required') ?></small>
                             </p>
                         </li>
                         <li class="user-body">

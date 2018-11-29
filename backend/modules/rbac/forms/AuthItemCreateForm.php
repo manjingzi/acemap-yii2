@@ -9,15 +9,17 @@ class AuthItemCreateForm extends AuthItemForm {
 
     public function rules() {
         return [
-            [['name'], 'required'],
-            [['rule_name'], 'string', 'max' => 64],
             [['rule_name', 'description'], 'trim'],
+            [['name'], 'required'],
+            ['name', 'validateName'],
+            [['rule_name'], 'string', 'max' => 64],
+            ['rule_name', 'validateRuleName', 'skipOnEmpty' => true],
             [['description'], 'string', 'max' => 100],
         ];
     }
 
     private function _create($type) {
-        if (Yii::$app->request->isPost) {
+        if ($this->validate()) {
             $auth = Yii::$app->authManager;
             if (Item::TYPE_ROLE == $type) {
                 $obj = $auth->createRole($this->name);
@@ -25,8 +27,10 @@ class AuthItemCreateForm extends AuthItemForm {
                 $obj = $auth->createPermission($this->name);
             }
             if ($this->rule_name) {
-                $this->checkRuleClass($this->rule_name);
+                $this->checkRuleName($this->rule_name);
                 $obj->ruleName = $this->rule_name;
+                $rule = new $this->rule_name;
+                $auth->add($rule);
             }
 
             $obj->description = $this->description;

@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%admin_operation_log}}".
+ * This is the model class for table "{{%user_operation_log}}".
  *
  * @property string $id ID
  * @property string $username 用户名
@@ -19,13 +19,13 @@ use Yii;
  * @property string $created_at 创建时间
  * @property string $updated_at 更新时间
  */
-class AdminOperationLog extends BaseModel {
+class UserOperationLog extends BaseModel {
 
     /**
      * {@inheritdoc}
      */
     public static function tableName() {
-        return '{{%admin_operation_log}}';
+        return '{{%user_operation_log}}';
     }
 
     /**
@@ -60,7 +60,7 @@ class AdminOperationLog extends BaseModel {
     }
 
     public static function add($data) {
-        $model = new AdminOperationLog();
+        $model = new UserOperationLog();
         $model->attributes = $data;
         $model->user_id = (int) Yii::$app->user->id;
         $model->username = isset(Yii::$app->user->identity->username) ? Yii::$app->user->identity->username : '';

@@ -4,10 +4,10 @@ namespace backend\controllers;
 
 use Yii;
 use common\extensions\Util;
-use backend\forms\LoginForm;
-use backend\forms\AdminChangePasswordForm;
+use common\forms\LoginForm;
+use common\forms\ChangePasswordForm;
 
-class SiteController extends BaseController {
+class SiteController extends BackendBaseController {
 
     public function actionIndex() {
         return $this->render('index');
@@ -45,7 +45,7 @@ class SiteController extends BaseController {
     }
 
     public function actionChangePassword() {
-        $model = new AdminChangePasswordForm();
+        $model = new ChangePasswordForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->changePassword()) {
                 $this->setSuccess();

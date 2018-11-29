@@ -1,10 +1,10 @@
 <?php
 
-use common\models\Admin;
+use common\models\User;
 use backend\widgets\ActiveForm;
 
 if ($model->isNewRecord) {
-    $model->status = Admin::STATUS_ACTIVE;
+    $model->status = User::STATUS_ACTIVE;
 }
 ?>
 <div class="box box-primary">

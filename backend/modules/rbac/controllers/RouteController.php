@@ -3,9 +3,9 @@
 namespace backend\modules\rbac\controllers;
 
 use Yii;
-use backend\controllers\BaseController;
+use backend\controllers\BackendBaseController;
 
-class RouteController extends BaseController {
+class RouteController extends BackendBaseController {
 
     public function actionIndex() {
         return $this->render('index');
