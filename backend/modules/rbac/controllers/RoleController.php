@@ -2,55 +2,19 @@
 
 namespace backend\modules\rbac\controllers;
 
-use Yii;
-use backend\controllers\BackendBaseController;
-use backend\modules\rbac\forms\AuthItemCreateForm;
-use backend\modules\rbac\forms\AuthItemUpdateForm;
+use yii\rbac\Item;
 
-class RoleController extends BackendBaseController {
+class RoleController extends ItemController {
 
-    public function actionIndex() {
-        $auth = Yii::$app->authManager;
-        $rows = $auth->getRoles();
-        return $this->render('index', ['rows' => $rows]);
+    public function labels() {
+        return[
+            'Item' => 'Role',
+            'Items' => 'Roles',
+        ];
     }
 
-    public function actionCreate() {
-        $model = new AuthItemCreateForm();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->createRole()) {
-                $this->setSuccess();
-                return $this->redirect(['view', 'id' => $model->name]);
-            } else {
-                $this->setError($model);
-            }
-        }
-
-        return $this->render('create', ['model' => $model]);
-    }
-
-    public function actionView($id) {
-        $model = new AuthItemUpdateForm(['name' => $id]);
-        $data = $model->getItems();
-        $data['row'] = $model->findRoleModel();
-        print_r($data);exit;
-        return $this->render('view', compact($data));
-    }
-
-    public function actionUpdate($id) {
-        $model = new AuthItemUpdateForm(['name' => $id]);
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->updateRole()) {
-                $this->setSuccess();
-                return $this->refresh();
-            } else {
-                $this->setError($model);
-            }
-        }
-
-        return $this->render('update', ['model' => $model]);
+    public function getType() {
+        return Item::TYPE_ROLE;
     }
 
 }

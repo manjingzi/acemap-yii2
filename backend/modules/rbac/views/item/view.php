@@ -1,22 +1,31 @@
 <?php
 
 use yii\helpers\Url;
+use yii\widgets\DetailView;
 use backend\widgets\ActiveForm;
 
+$labels = $this->context->labels();
 $this->title = Yii::t('app', 'View');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', $labels['Items']), 'url' => ['index']];
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <?= ActiveForm::staticHrefButton(ActiveForm::CREATE_UPDATE_DELETE, $row->name) ?>
+<?= ActiveForm::staticHrefButton(ActiveForm::CREATE_UPDATE_DELETE, $model->name) ?>
         <h3 class="box-title"><?= $this->title ?></h3>
     </div>
     <div class="box-body">
-        <div class="form-horizontal">
-            <?= ActiveForm::staticText(Yii::t('app', 'Name'), $row->name) ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Description'), $row->description ?: Yii::t('yii', '(not set)')) ?>
-            <?= ActiveForm::staticText(Yii::t('app/rbac', 'Rule Name'), $row->ruleName ?: Yii::t('yii', '(not set)')) ?>
-        </div>
+        <?=
+        DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'name',
+                'description:ntext',
+                'ruleName',
+                'data:ntext',
+            ],
+            'template' => '<tr><th>{label}</th><td>{value}</td></tr>',
+        ]);
+        ?>
     </div>
 </div>
 <div class="box box-primary">
@@ -40,8 +49,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' 
             </div>
             <div class="col-md-2">
                 <div class="text-center">
-                    <p><button data-target="available" data-href="<?= Url::to(['assign', 'id' => $row->name]) ?>" class="btn btn-success btn-assign"><i class="fa fa-share"></i></button></p>
-                    <p><button data-target="assigned" data-href="<?= Url::to(['remove', 'id' => $row->name]) ?>" class="btn btn-danger btn-assign"><i class="fa fa-reply"></i></button></p>
+                    <p><button data-target="available" data-href="<?= Url::to(['assign', 'id' => $model->name]) ?>" class="btn btn-success btn-assign"><i class="fa fa-share"></i></button></p>
+                    <p><button data-target="assigned" data-href="<?= Url::to(['remove', 'id' => $model->name]) ?>" class="btn btn-danger btn-assign"><i class="fa fa-reply"></i></button></p>
                 </div>
             </div>
             <div class="col-md-5">

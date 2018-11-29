@@ -2,44 +2,19 @@
 
 namespace backend\modules\rbac\controllers;
 
-use Yii;
-use backend\controllers\BackendBaseController;
-use backend\modules\rbac\search\AuthItemSearch;
-use backend\modules\rbac\forms\AuthItemCreateForm;
+use yii\rbac\Item;
 
-class PermissionController extends BackendBaseController {
+class PermissionController extends ItemController {
 
-    public function actionIndex() {
-        $searchModel = new AuthItemSearch(['type' => 2]);
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', ['searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
+    public function labels() {
+        return[
+            'Item' => 'Permission',
+            'Items' => 'Permissions',
+        ];
     }
 
-    public function actionCreate() {
-        $model = new AuthItemCreateForm();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->createPermission()) {
-                $this->setSuccess();
-                return $this->refresh();
-            } else {
-                $this->setError($model);
-            }
-        }
-
-        return $this->render('create', ['model' => $model]);
-    }
-
-    protected function findModel($id) {
-        $auth = Yii::$app->authManager;
-        $model = $auth->getPermission($id);
-
-        if ($model !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist');
-        }
+    public function getType() {
+        return Item::TYPE_PERMISSION;
     }
 
 }

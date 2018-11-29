@@ -10,7 +10,7 @@ return [
     'Information acquisition failure' => '信息获取失败',
     'File write failure' => '文件写入失败',
     'We will work on fixing that right away. you may try using the search form' => '我们将立即努力解决这个问题。 您可以尝试使用搜索表单。',
-    'The requested page does not exist.' => '请求的网页不存在。',
+    'The requested page does not exist' => '请求的网页不存在。',
     //验证
     'Username or password is incorrect' => '用户名或密码不正确',
     'New data validation failed' => '新增数据验证失败',

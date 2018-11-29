@@ -1,9 +1,6 @@
 <?php
 
 use backend\widgets\ActiveForm;
-
-$this->title = Yii::t('app', 'Create');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' => ['index']];
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
@@ -12,11 +9,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Roles'), 'url' 
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
         <?= $form->text('name', $model) ?>
-        <?= $form->text('description', $model) ?>
-        <?= $form->text('rule_name', $model) ?>
+        <?= $form->textarea('description', $model) ?>
+        <?= $form->text('ruleName', $model) ?>
+        <?= $form->textarea('data', $model, 6) ?>
     </div>
     <div class="box-footer">
-        <?= ActiveForm::staticSubmitButton() ?>
+        <?= ActiveForm::staticSubmitButton($model->isNewRecord) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

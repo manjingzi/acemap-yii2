@@ -184,8 +184,18 @@ class ActiveForm extends YiiActiveForm {
      * @param type $model
      * @return type
      */
-    public function text($field, $model, $defaultValue = null) {
-        return $this->field($model, $field)->textInput(['maxlength' => true, 'value' => $defaultValue]);
+    public function text($field, $model) {
+        return $this->field($model, $field)->textInput(['maxlength' => true]);
+    }
+
+    /**
+     * 多行输入框
+     * @param type $field
+     * @param type $model
+     * @return type
+     */
+    public function textarea($field, $model, $rows = 2) {
+        return $this->field($model, $field)->textarea(['maxlength' => true, 'rows' => $rows]);
     }
 
     /**
