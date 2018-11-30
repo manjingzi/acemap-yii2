@@ -48,6 +48,7 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Reset' => '重置',
             'Create' => '新增',
             'Delete' => '删除',
+            'Remove' => '移除',
             'Submit' => '提交',
             'Operation' => '操作',
             'Order' => '排序',

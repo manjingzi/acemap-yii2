@@ -3,15 +3,15 @@
 namespace backend\modules\rbac\controllers;
 
 use Yii;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\rbac\Item;
 use yii\web\Response;
+use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use backend\controllers\BackendBaseController;
 use backend\modules\rbac\models\AuthItem;
 use backend\modules\rbac\models\search\AuthItemSearch;
 
-class ItemController extends Controller {
+class ItemController extends BackendBaseController {
 
     public function behaviors() {
         return [
@@ -68,7 +68,6 @@ class ItemController extends Controller {
     public function actionDelete($id) {
         $model = $this->findModel($id);
         Yii::$app->authManager->remove($model->item);
-        //Helper::invalidate();
 
         return $this->redirect(['index']);
     }

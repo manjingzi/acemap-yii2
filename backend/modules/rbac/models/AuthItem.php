@@ -26,6 +26,7 @@ class AuthItem extends Model {
             $this->ruleName = $item->ruleName;
             $this->data = $item->data === null ? null : Json::encode($item->data);
         }
+
         parent::__construct($config);
     }
 
@@ -36,10 +37,17 @@ class AuthItem extends Model {
             [['name'], 'checkUnique', 'when' => function () {
                     return $this->isNewRecord || ($this->_item->name != $this->name);
                 }],
+            ['data', 'checkJson', 'skipOnEmpty' => true],
             [['type'], 'integer'],
-            [['description', 'data', 'ruleName'], 'default'],
+            [['description', 'ruleName'], 'default'],
             [['name'], 'string', 'max' => 64],
         ];
+    }
+
+    public function checkJson() {
+        if (is_null(json_decode((string) $this->data))) {
+            $this->addError('data', Yii::t('yii', 'The format of {attribute} is invalid.', ['attribute' => $this->getAttributeLabel('data')]));
+        }
     }
 
     public function checkUnique() {
@@ -110,16 +118,17 @@ class AuthItem extends Model {
                 $isNew = false;
                 $oldName = $this->_item->name;
             }
+
             $this->_item->name = $this->name;
             $this->_item->description = $this->description;
             $this->_item->ruleName = $this->ruleName;
             $this->_item->data = $this->data === null || $this->data === '' ? null : Json::decode($this->data);
+
             if ($isNew) {
                 $auth->add($this->_item);
             } else {
                 $auth->update($oldName, $this->_item);
             }
-            //Helper::invalidate();
             return true;
         } else {
             return false;
@@ -132,9 +141,11 @@ class AuthItem extends Model {
         if ($this->_item) {
             foreach ($items as $name) {
                 $child = $auth->getPermission($name);
+
                 if ($this->type == Item::TYPE_ROLE && $child === null) {
                     $child = $auth->getRole($name);
                 }
+
                 try {
                     $auth->addChild($this->_item, $child);
                     $success++;
@@ -143,9 +154,7 @@ class AuthItem extends Model {
                 }
             }
         }
-        if ($success > 0) {
-            //Helper::invalidate();
-        }
+
         return $success;
     }
 
@@ -158,6 +167,7 @@ class AuthItem extends Model {
                 if ($this->type == Item::TYPE_ROLE && $child === null) {
                     $child = $auth->getRole($name);
                 }
+
                 try {
                     $auth->removeChild($this->_item, $child);
                     $success++;
@@ -166,34 +176,33 @@ class AuthItem extends Model {
                 }
             }
         }
-        if ($success > 0) {
-            //Helper::invalidate();
-        }
+
         return $success;
     }
 
     public function getItems() {
         $auth = Yii::$app->authManager;
         $available = [];
+        $assigned = [];
+
         if ($this->type == Item::TYPE_ROLE) {
             foreach (array_keys($auth->getRoles()) as $name) {
                 $available[$name] = 'role';
             }
         }
+
         foreach (array_keys($auth->getPermissions()) as $name) {
             $available[$name] = $name[0] == '/' ? 'route' : 'permission';
         }
 
-        $assigned = [];
         foreach ($auth->getChildren($this->_item->name) as $item) {
-            $assigned[$item->name] = $item->type == 1 ? 'role' : ($item->name[0] == '/' ? 'route' : 'permission');
+            $assigned[$item->name] = $item->type == Item::TYPE_ROLE ? 'role' : ($item->name[0] == '/' ? 'route' : 'permission');
             unset($available[$item->name]);
         }
+
         unset($available[$this->name]);
-        return [
-            'available' => $available,
-            'assigned' => $assigned,
-        ];
+
+        return ['available' => $available, 'assigned' => $assigned];
     }
 
     public function getItem() {
@@ -201,10 +210,8 @@ class AuthItem extends Model {
     }
 
     public static function getTypeName($type = null) {
-        $result = [
-            Item::TYPE_PERMISSION => 'Permission',
-            Item::TYPE_ROLE => 'Role',
-        ];
+        $result = [Item::TYPE_PERMISSION => 'Permission', Item::TYPE_ROLE => 'Role'];
+
         if ($type === null) {
             return $result;
         }
