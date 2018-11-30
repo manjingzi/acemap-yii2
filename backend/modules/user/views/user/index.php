@@ -2,12 +2,15 @@
 
 use common\models\User;
 use common\extensions\Util;
+use common\extensions\Btn;
 use backend\widgets\GridView;
 use backend\widgets\SearchForm;
-use backend\widgets\ActiveForm;
 
-$this->title = Yii::t('app', 'List');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
+$title = Yii::t('app', 'System user');
+$label = Yii::t('app', 'List');
+$this->title = $title . ' - ' . $label;
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = $label;
 $keyword = User::getSearchParams('keyword');
 ?>
 <div class="row">
@@ -24,16 +27,16 @@ $keyword = User::getSearchParams('keyword');
                 <?= $form->selectPagesize($searchModel) ?>
                 <?= $form->selectStatus($searchModel) ?>
                 <?= $form->searchKeyword($searchModel) ?>
-                <?= ActiveForm::staticHrefButton(ActiveForm::RESET) ?>
-                <?= ActiveForm::staticButton(ActiveForm::SEARCH) ?>
+                <?= Btn::resetButton() ?>
+                <?= Btn::searchSubmitButton() ?>
                 <?php SearchForm::end(); ?>
             </div>
         </div>
 
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="pull-right"><?= ActiveForm::staticHrefButton(ActiveForm::CREATE) ?></div>
-                <h3 class="box-title"><?= $this->title ?></h3>
+                <div class="pull-right"><?= Btn::createHrefButton() ?></div>
+                <h3 class="box-title"><?= $label ?></h3>
             </div>
             <div class="box-body">
                 <?=

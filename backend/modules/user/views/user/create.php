@@ -1,5 +1,9 @@
 <?php
 
-$this->title = Yii::t('app', 'Create');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
-echo $this->render('_form', ['model' => $model]);
+$title = Yii::t('app', 'System user');
+$label = Yii::t('app', 'Create');
+$this->title = $title . ' - ' . $label;
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = $label;
+
+echo $this->render('_form', ['model' => $model, 'label' => $label]);

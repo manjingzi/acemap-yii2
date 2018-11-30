@@ -1,5 +1,6 @@
 <?php
 
+use common\extensions\Btn;
 use common\models\User;
 use backend\widgets\ActiveForm;
 
@@ -9,7 +10,7 @@ if ($model->isNewRecord) {
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= $this->title ?></h3>
+        <h3 class="box-title"><?= $label ?></h3>
     </div>
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
@@ -18,13 +19,17 @@ if ($model->isNewRecord) {
             <?= $form->password('newPassword', $model) ?>
             <?= $form->password('confirmPassword', $model) ?>
         <?php } else { ?>
-            <?= ActiveForm::staticText(Yii::t('app', 'Username'), $model->username); ?>
+            <?= Btn::staticText(Yii::t('app', 'Username'), $model->username); ?>
         <?php } ?>
         <?= $form->text('email', $model) ?>
         <?= $form->radioListStatus($model) ?>
     </div>
     <div class="box-footer">
-        <?= ActiveForm::staticSubmitButton($model->isNewRecord) ?>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <?= $model->isNewRecord ? Btn::createSubmitButton() : Btn::updateSubmitButton() ?>
+            </div>
+        </div>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

@@ -1,22 +1,30 @@
 <?php
 
+use common\extensions\Btn;
 use backend\widgets\ActiveForm;
 
-$this->title = Yii::t('app', 'Change password');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'System user'), 'url' => ['index']];
+$title = Yii::t('app', 'System user');
+$label = Yii::t('app', 'Change password');
+$this->title = $title . ' - ' . $label;
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = $label;
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= $this->title ?></h3>
+        <h3 class="box-title"><?= $label ?></h3>
     </div>
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-body">
-        <?= ActiveForm::staticText(Yii::t('app', 'Username'), $model->username) ?>
+        <?= Btn::staticText(Yii::t('app', 'Username'), $model->username) ?>
         <?= $form->password('newPassword', $model) ?>
         <?= $form->password('confirmPassword', $model) ?>
     </div>
     <div class="box-footer">
-        <?= ActiveForm::staticPasswordSubmitButton() ?>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <?= Btn::changePasswordSubmitButton() ?>
+            </div>
+        </div>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

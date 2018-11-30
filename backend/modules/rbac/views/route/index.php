@@ -2,15 +2,19 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use common\extensions\Btn;
 use backend\widgets\ActiveForm;
 use backend\widgets\JsBlock;
 
-$this->title = Yii::t('app', 'List');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Routes'), 'url' => ['index']];
+$title = Yii::t('app/rbac', 'Routes');
+$label = Yii::t('app', 'View');
+$this->title = $title . ' - ' . $label;
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = $label;
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= Yii::t('app', 'List') ?></h3>
+        <h3 class="box-title"><?= $label ?></h3>
     </div>
     <?php ActiveForm::begin(['action' => Url::to(['create'])]); ?>
     <div class="box-body">
@@ -21,7 +25,11 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', 'Routes'), 'url'
         </div>
     </div>
     <div class="box-footer text-right">
-        <?= ActiveForm::staticSubmitButton(true, false) ?>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <?= Btn::createSubmitButton() ?>
+            </div>
+        </div>
     </div>
     <?php ActiveForm::end() ?>
 </div>

@@ -1,11 +1,14 @@
 <?php
 
-use backend\widgets\ActiveForm;
+use common\extensions\Btn;
 use backend\widgets\GridView;
 
 $labels = $this->context->labels();
-$this->title = Yii::t('app', 'List');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/rbac', $labels['Items']), 'url' => ['index']];
+$title = Yii::t('app/rbac', $labels['Items']);
+$label = Yii::t('app', 'List');
+$this->title = $title . ' - ' . $label;
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = $label;
 $rules = array_keys(Yii::$app->authManager->getRules());
 $filter = array_combine($rules, $rules);
 ?>
@@ -13,8 +16,8 @@ $filter = array_combine($rules, $rules);
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <div class="pull-right"><?= ActiveForm::staticCreateButton() ?></div>
-                <h3 class="box-title"><?= Yii::t('app', 'List') ?></h3>
+                <div class="pull-right"><?= Btn::createHrefButton() ?></div>
+                <h3 class="box-title"><?= $label ?></h3>
             </div>
             <div class="box-body">
                 <?=

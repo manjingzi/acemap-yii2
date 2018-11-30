@@ -13,12 +13,14 @@ class Assignment extends \yii\base\BaseObject {
     public function __construct($id, $user = null, $config = array()) {
         $this->id = $id;
         $this->user = $user;
+
         parent::__construct($config);
     }
 
     public function assign($items) {
         $auth = Yii::$app->authManager;
         $success = 0;
+
         foreach ($items as $name) {
             try {
                 $obj = $auth->getRole($name);
@@ -29,13 +31,14 @@ class Assignment extends \yii\base\BaseObject {
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        //Helper::invalidate();
+
         return $success;
     }
 
     public function revoke($items) {
         $auth = Yii::$app->authManager;
         $success = 0;
+
         foreach ($items as $name) {
             try {
                 $obj = $auth->getRole($name);
@@ -46,13 +49,14 @@ class Assignment extends \yii\base\BaseObject {
                 Yii::error($exc->getMessage(), __METHOD__);
             }
         }
-        //Helper::invalidate();
+
         return $success;
     }
 
     public function getItems() {
         $auth = Yii::$app->authManager;
         $available = [];
+
         foreach (array_keys($auth->getRoles()) as $name) {
             $available[$name] = 'role';
         }
@@ -64,6 +68,7 @@ class Assignment extends \yii\base\BaseObject {
         }
 
         $assigned = [];
+
         foreach ($auth->getAssignments($this->id) as $item) {
             $assigned[$item->roleName] = $available[$item->roleName];
             unset($available[$item->roleName]);

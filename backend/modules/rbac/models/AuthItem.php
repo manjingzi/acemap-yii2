@@ -19,6 +19,7 @@ class AuthItem extends Model {
 
     public function __construct($item = null, $config = []) {
         $this->_item = $item;
+        
         if ($item !== null) {
             $this->name = $item->name;
             $this->type = $item->type;
@@ -53,6 +54,7 @@ class AuthItem extends Model {
     public function checkUnique() {
         $auth = Yii::$app->authManager;
         $value = $this->name;
+        
         if ($auth->getRole($value) !== null || $auth->getPermission($value) !== null) {
             $message = Yii::t('yii', '{attribute} "{value}" has already been taken.');
             $params = [
@@ -65,6 +67,7 @@ class AuthItem extends Model {
 
     public function checkRule() {
         $name = $this->ruleName;
+        
         if (!Yii::$app->authManager->getRule($name)) {
             try {
                 $rule = Yii::createObject($name);
@@ -97,6 +100,7 @@ class AuthItem extends Model {
 
     public static function find($id) {
         $item = Yii::$app->authManager->getRole($id);
+        
         if ($item !== null) {
             return new self($item);
         }
@@ -107,6 +111,7 @@ class AuthItem extends Model {
     public function save() {
         if ($this->validate()) {
             $auth = Yii::$app->authManager;
+            
             if ($this->_item === null) {
                 if ($this->type == Item::TYPE_ROLE) {
                     $this->_item = $auth->createRole($this->name);
@@ -138,6 +143,7 @@ class AuthItem extends Model {
     public function addChildren($items) {
         $auth = Yii::$app->authManager;
         $success = 0;
+        
         if ($this->_item) {
             foreach ($items as $name) {
                 $child = $auth->getPermission($name);
@@ -161,6 +167,7 @@ class AuthItem extends Model {
     public function removeChildren($items) {
         $auth = Yii::$app->authManager;
         $success = 0;
+        
         if ($this->_item !== null) {
             foreach ($items as $name) {
                 $child = $auth->getPermission($name);

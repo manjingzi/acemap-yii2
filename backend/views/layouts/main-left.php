@@ -31,11 +31,10 @@ use yii\helpers\Url;
                     <i class="fa fa-angle-left pull-right"></i>               
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?= Url::to(['/rbac/route/index']) ?>"><i class="fa fa-circle-o"></i> 路由</a></li>
-                    <li><a href="<?= Url::to(['/rbac/permission/index']) ?>"><i class="fa fa-circle-o"></i> 权限</a></li>
-                    <li><a href="<?= Url::to(['/rbac/role/index']) ?>"><i class="fa fa-circle-o"></i> 角色</a></li>
-                    <li><a href="<?= Url::to(['/rbac/assignment/index']) ?>"><i class="fa fa-circle-o"></i> 分配</a></li>
-                    <li><a href="<?= Url::to(['/rbac/menu/index']) ?>"><i class="fa fa-circle-o"></i> 菜单</a></li>
+                    <li><a href="<?= Url::to(['/rbac/route/index']) ?>"><i class="fa fa-circle-o"></i> 路由管理</a></li>
+                    <li><a href="<?= Url::to(['/rbac/permission/index']) ?>"><i class="fa fa-circle-o"></i> 权限管理</a></li>
+                    <li><a href="<?= Url::to(['/rbac/role/index']) ?>"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                    <li><a href="<?= Url::to(['/rbac/menu/index']) ?>"><i class="fa fa-circle-o"></i> 菜单管理</a></li>
                 </ul>
             </li>
             <li class="treeview">

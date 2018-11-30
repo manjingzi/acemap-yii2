@@ -2,7 +2,6 @@
 
 namespace backend\modules\rbac\controllers;
 
-use Yii;
 use backend\controllers\BackendBaseController;
 
 class MenuController extends BackendBaseController {

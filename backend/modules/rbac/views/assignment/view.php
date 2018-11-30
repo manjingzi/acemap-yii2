@@ -3,15 +3,13 @@
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\Url;
-use common\extensions\Btn;
-use yii\widgets\DetailView;
 
-$labels = $this->context->labels();
-$title = Yii::t('app/rbac', $labels['Items']);
-$label = Yii::t('app', 'View');
+$title = Yii::t('app', 'System user');
+$label = Yii::t('app', 'Assign');
 $this->title = $title . ' - ' . $label;
-$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['user/user/index']];
 $this->params['breadcrumbs'][] = $label;
+
 $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>';
 $opts = Json::htmlEncode(['items' => $model->getItems()]);
 $this->registerJs('var _opts = ' . $opts . ';');
@@ -19,30 +17,7 @@ $this->registerJs($this->render('_script.js'));
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <div class="pull-right">
-            <?= Btn::deleteHrefButton($model->name) ?>
-            <?= Btn::updateHrefButton($model->name) ?>
-            <?= Btn::createHrefButton() ?>
-        </div>
-        <h3 class="box-title"><?= $label ?></h3>
-    </div>
-    <div class="box-body">
-        <?=
-        DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                'name',
-                'description:ntext',
-                'ruleName',
-                'data:ntext',
-            ]
-        ]);
-        ?>
-    </div>
-</div>
-<div class="box box-primary">
-    <div class="box-header with-border">
-        <h3 class="box-title"><?= Yii::t('app', 'Operation') ?></h3>
+        <h3 class="box-title"><?= $this->title ?> <?= $model->username ?></h3>
     </div>
     <div class="box-body">
         <div class="row">
@@ -65,7 +40,7 @@ $this->registerJs($this->render('_script.js'));
                         <?=
                         Html::button('&gt;&gt;' . $animateIcon, [
                             'class' => 'btn btn-success btn-assign',
-                            'data-href' => Url::to(['assign', 'id' => $model->name]),
+                            'data-href' => Url::to(['assign', 'id' => $model->id]),
                             'data-target' => 'available',
                             'title' => Yii::t('app/rbac', 'Assign'),
                         ]);
@@ -75,7 +50,7 @@ $this->registerJs($this->render('_script.js'));
                         <?=
                         Html::button('&lt;&lt;' . $animateIcon, [
                             'class' => 'btn btn-danger btn-assign',
-                            'data-href' => Url::to(['remove', 'id' => $model->name]),
+                            'data-href' => Url::to(['remove', 'id' => $model->id]),
                             'data-target' => 'assigned',
                             'title' => Yii::t('app', 'Remove'),
                         ]);
