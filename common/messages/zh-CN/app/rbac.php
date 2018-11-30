@@ -28,5 +28,6 @@ return [
     'The rule class does not exist' => '该规则类不存在。',
     'The rule class already exists' => '该规则类已存在。',
     'Search for available' => '搜索可用的',
-    'Search for assigned' => '搜索已分配'
+    'Search for assigned' => '搜索已分配',
+    'Please enter one or more routes, one per line' => '请输入一条或多条路由，每行一条'
 ];

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 use backend\widgets\ActiveForm;
 
@@ -55,8 +56,9 @@ $this->registerJs($this->render('_script.js'));
                 <div class="text-center">
                     <p>
                         <?=
-                        Html::a('&gt;&gt;' . $animateIcon, ['assign', 'id' => $model->name], [
+                        Html::button('&gt;&gt;' . $animateIcon, [
                             'class' => 'btn btn-success btn-assign',
+                            'data-href' => Url::to(['assign', 'id' => $model->name]),
                             'data-target' => 'available',
                             'title' => Yii::t('app/rbac', 'Assign'),
                         ]);
@@ -64,8 +66,9 @@ $this->registerJs($this->render('_script.js'));
                     </p>
                     <p>
                         <?=
-                        Html::a('&lt;&lt;' . $animateIcon, ['remove', 'id' => $model->name], [
+                        Html::button('&lt;&lt;' . $animateIcon, [
                             'class' => 'btn btn-danger btn-assign',
+                            'data-href' => Url::to(['remove', 'id' => $model->name]),
                             'data-target' => 'assigned',
                             'title' => Yii::t('app', 'Remove'),
                         ]);

@@ -46,7 +46,7 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Search' => '查询',
             'List' => '列表',
             'Reset' => '重置',
-            'Create' => '新增',
+            'Create' => '创建',
             'Delete' => '删除',
             'Remove' => '移除',
             'Submit' => '提交',
@@ -54,6 +54,8 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Order' => '排序',
             'Name' => '名称',
             'Type' => '类型',
+            'All select' => '全选',
+            'Reverse select' => '反选',
             //分页
             'Prev' => '上页',
             'Next' => '下页',

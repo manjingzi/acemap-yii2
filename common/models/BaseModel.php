@@ -9,13 +9,27 @@ class BaseModel extends \yii\db\ActiveRecord {
     const STATUS_ACTIVE = 1; //正常
     const STATUS_DELETED = 2; //无效
 
+    public static function setError($model = null, $msg = null) {
+        if ($model) {
+            $error = $model->getFirstErrors();
+            if ($error) {
+                $msg = array_values($error)[0];
+            }
+        }
+
+        Yii::$app->getSession()->setFlash('error', $msg ? $msg : Yii::t('app/error', 'Operation result failed'));
+    }
+
+    public static function setSuccess($msg = null) {
+        Yii::$app->getSession()->setFlash('success', $msg ? $msg : Yii::t('app/error', 'Successful operation result'));
+    }
+
     /**
      * 通用自定义数组显示状态
      * @param type $array
      * @param type $type
      * @return boolean
      */
-
     public static function getCommonStatus($array, $type = null) {
         if (is_null($type)) {
             return $array;

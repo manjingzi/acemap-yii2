@@ -61,7 +61,7 @@ class ActiveForm extends YiiActiveForm {
                 break;
             case self::DELETE:
                 $class = 'btn btn-danger';
-                $text = '<i class="fa fa-trash"></i> ' . Yii::t('app', 'Update');
+                $text = '<i class="fa fa-trash"></i> ' . Yii::t('app', 'Delete');
                 break;
             case self::SEARCH:
                 $class = 'btn btn-primary';
@@ -86,8 +86,8 @@ class ActiveForm extends YiiActiveForm {
         }
     }
 
-    public static function staticSubmitButton($isNew = true) {
-        return self::staticButton($isNew ? self::CREATE : self::UPDATE, true);
+    public static function staticSubmitButton($isNew = true, $wrapper = true) {
+        return self::staticButton($isNew ? self::CREATE : self::UPDATE, $wrapper);
     }
 
     public static function staticPasswordSubmitButton() {
@@ -195,7 +195,7 @@ class ActiveForm extends YiiActiveForm {
      * @return type
      */
     public function textarea($field, $model, $rows = 2) {
-        return $this->field($model, $field)->textarea(['maxlength' => true, 'rows' => $rows]);
+        return $this->field($model, $field)->textarea(['rows' => $rows]);
     }
 
     /**

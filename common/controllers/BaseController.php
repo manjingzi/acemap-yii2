@@ -22,18 +22,11 @@ class BaseController extends Controller {
     }
 
     protected function setError($model = null, $msg = null) {
-        if ($model) {
-            $error = $model->getFirstErrors();
-            if ($error) {
-                $msg = array_values($error)[0];
-            }
-        }
-
-        Yii::$app->getSession()->setFlash('error', $msg ? $msg : Yii::t('app/error', 'Operation result failed'));
+        BaseModel::setError($model, $msg);
     }
 
     protected function setSuccess($msg = null) {
-        Yii::$app->getSession()->setFlash('success', $msg ? $msg : Yii::t('app/error', 'Successful operation result'));
+        BaseModel::setSuccess($msg);
     }
 
     /**
