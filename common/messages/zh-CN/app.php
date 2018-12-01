@@ -24,6 +24,7 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Updated At' => '更新时间',
             'Login Ip' => '登录IP',
             'Description' => '描述',
+            'Pid' => '父级',
             //附加labels
             'Old Password' => '旧密码',
             'New Password' => '新密码',
@@ -35,6 +36,7 @@ return yii\helpers\ArrayHelper::merge(require __DIR__ . '/yii.php', [
             'Website user' => '网站用户',
             'Authority control' => '权限控制',
             //查询
+            'Please choose' => '请选择',
             'Select pagesize' => '选择页码',
             'Select status' => '选择状态',
             'Please enter keywords' => '请输入关键词',

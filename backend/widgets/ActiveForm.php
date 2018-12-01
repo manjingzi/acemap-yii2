@@ -49,8 +49,8 @@ class ActiveForm extends YiiActiveForm {
      * @param type $model
      * @return type
      */
-    public function hiddenInput($field, $model, $value) {
-        return $this->field($model, $field)->hiddenInput(['value' => $value])->label(false);
+    public function hiddenInput($field, $model, $options = []) {
+        return $this->field($model, $field)->hiddenInput($options)->label(false);
     }
 
     /**
@@ -95,16 +95,16 @@ class ActiveForm extends YiiActiveForm {
         return $this->field($model, $field)->checkboxList($array, ['itemOptions' => ['labelOptions' => ['class' => 'checkbox-inline']]]);
     }
 
-    public function dropDownList($field, $model, $array, $defaultValue = null, $prompt = null) {
-        return $this->field($model, $field)->dropDownList($array, ['prompt' => $prompt, 'value' => $defaultValue]);
+    public function dropDownList($field, $model, $array, $prompt = null) {
+        return $this->field($model, $field)->dropDownList($array, ['prompt' => $prompt ?: Yii::t('app', 'Please choose')]);
     }
 
     public function selectPagesize($model, $field = 'pagesize') {
-        return $this->dropDownList($field, $model, $model::getPageSize(), $model::getSearchParams($field), Yii::t('app', 'Select pagesize'));
+        return $this->dropDownList($field, $model, $model::getPageSize(), Yii::t('app', 'Select pagesize'));
     }
 
-    public function selectStatus($model, $field = 'status') {
-        return $this->dropDownList($field, $model, $model::getStatusText(), $model::getSearchParams($field), Yii::t('app', 'Select status'));
+    public function selectStatus($model, $prompt = null, $field = 'status') {
+        return $this->dropDownList($field, $model, $model::getStatusText(), $prompt ?: Yii::t('app', 'Select status'));
     }
 
     public function radioListStatus($model, $field = 'status') {
@@ -118,7 +118,7 @@ class ActiveForm extends YiiActiveForm {
      * @return type
      */
     public function searchKeyword($model, $field = 'keyword') {
-        return $this->field($model, $field)->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Please enter keywords'), 'value' => $model::getSearchParams($field)]);
+        return $this->field($model, $field)->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'Please enter keywords')]);
     }
 
     /**

@@ -7,20 +7,18 @@ use backend\widgets\ActiveForm;
 use backend\widgets\JsBlock;
 
 $title = Yii::t('app/rbac', 'Routes');
-$label = Yii::t('app', 'View');
+$label = Yii::t('app', 'List');
 $this->title = $title . ' - ' . $label;
 $this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $label;
 ?>
 <div class="box box-primary">
-    <div class="box-header with-border">
-        <h3 class="box-title"><?= $label ?></h3>
-    </div>
+
     <?php ActiveForm::begin(['action' => Url::to(['create'])]); ?>
     <div class="box-body">
         <div class="row">
             <div class="col-md-12">
-                <textarea name="routes" rows="5" class="form-control" placeholder="<?= Yii::t('app/rbac', 'Please enter one or more routes, one per line') ?>"></textarea>
+                <textarea id="textarea" style="resize:none" name="routes" rows="2" class="form-control" placeholder="<?= Yii::t('app/rbac', 'Please enter one or more routes, one per line') ?>"></textarea>
             </div>
         </div>
     </div>
@@ -34,6 +32,9 @@ $this->params['breadcrumbs'][] = $label;
     <?php ActiveForm::end() ?>
 </div>
 <div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title"><?= $label ?></h3>
+    </div>
     <div class="box-body">
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -124,6 +125,11 @@ $this->params['breadcrumbs'][] = $label;
                     $(this).children('i.glyphicon-refresh-animate').hide();
                 });
             }
+        });
+        //textarea高度自适应
+        $('#textarea').on('input', function () {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 10 + 'px';
         });
     });
 </script>

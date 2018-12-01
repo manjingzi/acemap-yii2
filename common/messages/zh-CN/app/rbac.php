@@ -1,12 +1,12 @@
 <?php
 
 return [
+    'Display State' => '显示状态',
     'Assign' => '分配',
     'Assign authority' => '分配权限',
     'Roles' => '角色管理',
     'Rule Name' => '规则名称',
     'Data' => '数据',
-    'Parent Name' => '父级名称',
     'Permissions' => '权限管理',
     'Assignments' => '分配管理',
     'Route' => '路由',

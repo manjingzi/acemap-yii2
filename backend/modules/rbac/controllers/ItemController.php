@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use backend\controllers\BackendBaseController;
 use backend\modules\rbac\models\AuthItem;
-use backend\modules\rbac\models\search\AuthItemSearch;
+use backend\modules\rbac\search\AuthItemSearch;
 
 class ItemController extends BackendBaseController {
 

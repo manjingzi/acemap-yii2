@@ -55,11 +55,11 @@ class BaseController extends Controller {
                     $this->setSuccess();
                     return true;
                 } else {
-                    $this->setError(null, $model);
+                    $this->setError($model);
                     return false;
                 }
             } else {
-                $this->setError(Yii::t('app/error', 'New data validation failed'), $model);
+                $this->setError(null, Yii::t('app/error', 'New data validation failed'));
                 return false;
             }
         } else {
@@ -92,11 +92,11 @@ class BaseController extends Controller {
                     $this->setSuccess();
                     return true;
                 } else {
-                    $this->setError(null, $model);
+                    $this->setError($model);
                     return false;
                 }
             } else {
-                $this->setError(Yii::t('app/error', 'New data validation failed'), $model);
+                $this->setError(null, Yii::t('app/error', 'New data validation failed'));
                 return false;
             }
         } else {
@@ -121,21 +121,22 @@ class BaseController extends Controller {
         if ($id) {
             $list = $modelClass::find()->where(['id' => $id])->all();
             foreach ($list as $model) {
+                $data_before = $model->attributes; //在本次更新之前的数据
                 $result = $model->delete();
                 $log['status'] = $result ? BaseModel::STATUS_ACTIVE : BaseModel::STATUS_DELETED;
                 $log['object_id'] = $model->id;
-                $log['data_add'] = json_encode($model->attributes, JSON_UNESCAPED_UNICODE);
-                $log['data_before'] = json_encode(null, JSON_UNESCAPED_UNICODE);
+                $log['data_add'] = json_encode(null, JSON_UNESCAPED_UNICODE);
+                $log['data_before'] = json_encode($data_before, JSON_UNESCAPED_UNICODE);
                 $this->log($log);
                 if ($model->getErrors()) {
-                    $this->setError(null, $model);
+                    $this->setError($model);
                     return false;
                 }
             }
             $this->setSuccess();
             return true;
         } else {
-            $this->setError(Yii::t('app/error', 'Parameter error'));
+            $this->setError(null, Yii::t('app/error', 'Parameter error'));
             return false;
         }
     }

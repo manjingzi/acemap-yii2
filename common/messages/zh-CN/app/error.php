@@ -25,4 +25,7 @@ return [
     'Verification code error' => '验证码错误',
     'Verification code is correct' => '验证码正确',
     'Click verification code to refresh' => '点击验证码可以刷新',
+    'It is forbidden to select this node as its own parent node' => '禁止选择该节点为自己的父节点',
+    'It is forbidden to select this node as its own child node' => '禁止选择该节点为自己的子节点',
+    'This node has child nodes' => '本节点还有子节点'
 ];

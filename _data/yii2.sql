@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-11-29 20:15:43
+Date: 2018-12-01 08:30:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -120,11 +120,7 @@ CREATE TABLE `jj_auth_item` (
 -- ----------------------------
 -- Records of jj_auth_item
 -- ----------------------------
-INSERT INTO `jj_auth_item` VALUES ('administer', '1', '333', null, null, '1543416056', '1543489277');
-INSERT INTO `jj_auth_item` VALUES ('权限2', '2', null, null, null, '1543418816', '1543418816');
-INSERT INTO `jj_auth_item` VALUES ('角色3', '1', null, null, null, '1543418832', '1543418832');
-INSERT INTO `jj_auth_item` VALUES ('角色列表 ', '1', '角色列表 ', null, null, '1543419190', '1543419190');
-INSERT INTO `jj_auth_item` VALUES ('角色列表44', '1', '角色列表4444444', null, null, '1543419209', '1543419209');
+INSERT INTO `jj_auth_item` VALUES ('超级管理', '1', 'erweew', null, null, '1543619646', '1543619657');
 
 -- ----------------------------
 -- Table structure for `jj_auth_item_child`
@@ -144,6 +140,24 @@ CREATE TABLE `jj_auth_item_child` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `jj_auth_menu`
+-- ----------------------------
+DROP TABLE IF EXISTS `jj_auth_menu`;
+CREATE TABLE `jj_auth_menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父ID',
+  `order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `name` varchar(50) NOT NULL COMMENT '菜单名称',
+  `route` varchar(100) NOT NULL DEFAULT '' COMMENT '路由',
+  PRIMARY KEY (`id`),
+  KEY `parent` (`pid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of jj_auth_menu
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `jj_auth_rule`
 -- ----------------------------
 DROP TABLE IF EXISTS `jj_auth_rule`;
@@ -158,26 +172,7 @@ CREATE TABLE `jj_auth_rule` (
 -- ----------------------------
 -- Records of jj_auth_rule
 -- ----------------------------
-
--- ----------------------------
--- Table structure for `jj_menu`
--- ----------------------------
-DROP TABLE IF EXISTS `jj_menu`;
-CREATE TABLE `jj_menu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parent` int(11) DEFAULT NULL,
-  `order` int(11) DEFAULT NULL,
-  `name` varchar(128) NOT NULL,
-  `route` varchar(256) DEFAULT NULL,
-  `data` text,
-  PRIMARY KEY (`id`),
-  KEY `parent` (`parent`),
-  CONSTRAINT `jj_menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `jj_menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of jj_menu
--- ----------------------------
+INSERT INTO `jj_auth_rule` VALUES ('common\\rules\\ArticleRule', 0x4F3A32343A22636F6D6D6F6E5C72756C65735C41727469636C6552756C65223A333A7B733A343A226E616D65223B733A32343A22636F6D6D6F6E5C72756C65735C41727469636C6552756C65223B733A393A22637265617465644174223B693A313534333530313139333B733A393A22757064617465644174223B693A313534333530313139333B7D, '1543501193', '1543501193');
 
 -- ----------------------------
 -- Table structure for `jj_migration`
@@ -273,9 +268,9 @@ CREATE TABLE `jj_user` (
 -- ----------------------------
 -- Records of jj_user
 -- ----------------------------
-INSERT INTO `jj_user` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z', '$2y$13$BpsDc2MrRD/tXg1LuqhG2uATx09rj6XXYUKOQDjtj9dDCWqIPjwjS', '', '19744244@qq.com', '1', '1542901437', '1543402502');
+INSERT INTO `jj_user` VALUES ('1', 'admin', 'CqcJFlEefHGb6MitXMKZFSP77mfIOM-z', '$2y$13$BpsDc2MrRD/tXg1LuqhG2uATx09rj6XXYUKOQDjtj9dDCWqIPjwjS', '', '19744244@qq.com', '1', '1542901437', '1543588825');
 INSERT INTO `jj_user` VALUES ('2', '123', 'Hr3nfDmuJAwRn-P7_3mhPCA-qi_kWuxV', '$2y$13$JGjsQ2mo6fuIfhsg1toe7eYdhDtt8mo4SE0qJGXILrK3jk/yGwzG.', 't4R2Brbfk2E24_XVkpboC0ahTlQFbiCK_1543415068', '12@12.com', '1', '1543415068', '1543415068');
-INSERT INTO `jj_user` VALUES ('3', '123123123', 'Iwt8v6blNw1evdyU7UdDxd8N1lB5-O7I', '$2y$13$kxxLtJp9ZZC4LT4DIgAWpe9I.uYFKeJV2WEFLo4gOfzd8OdqieVsi', 'D-9hOgM_--LvwHlTlDPA8T6hxxobpl0Q_1543415087', '12@144432.com', '2', '1543415087', '1543415508');
+INSERT INTO `jj_user` VALUES ('3', '123123123', 'Iwt8v6blNw1evdyU7UdDxd8N1lB5-O7I', '$2y$13$kxxLtJp9ZZC4LT4DIgAWpe9I.uYFKeJV2WEFLo4gOfzd8OdqieVsi', 'D-9hOgM_--LvwHlTlDPA8T6hxxobpl0Q_1543415087', '12@144432.com', '2', '1543415087', '1543587354');
 
 -- ----------------------------
 -- Table structure for `jj_user_login_log`
@@ -289,12 +284,13 @@ CREATE TABLE `jj_user_login_log` (
   `login_ip` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录IP',
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='管理员登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='管理员登录日志表';
 
 -- ----------------------------
 -- Records of jj_user_login_log
 -- ----------------------------
 INSERT INTO `jj_user_login_log` VALUES ('1', 'admin', '', '1', '2130706433', '1543402502');
+INSERT INTO `jj_user_login_log` VALUES ('2', 'admin', '', '1', '2130706433', '1543588825');
 
 -- ----------------------------
 -- Table structure for `jj_user_operation_log`
@@ -313,9 +309,11 @@ CREATE TABLE `jj_user_operation_log` (
   `created_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `updated_at` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
 
 -- ----------------------------
 -- Records of jj_user_operation_log
 -- ----------------------------
 INSERT INTO `jj_user_operation_log` VALUES ('1', 'admin', 'user/admin/delete', 'null', '{\"status\":2,\"updated_at\":1543415508,\"id\":\"3\"}', '0', '1', '1', '0', '1543415509', '0');
+INSERT INTO `jj_user_operation_log` VALUES ('2', '', 'user/user/delete', 'null', '{\"status\":2,\"updated_at\":1543493928,\"id\":\"3\"}', '0', '1', '0', '0', '1543493929', '0');
+INSERT INTO `jj_user_operation_log` VALUES ('3', '', 'user/user/delete', 'null', '{\"status\":2,\"updated_at\":1543587354,\"id\":\"3\"}', '0', '1', '0', '0', '1543587355', '0');

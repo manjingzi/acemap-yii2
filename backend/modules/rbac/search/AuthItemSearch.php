@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\rbac\models\search;
+namespace backend\modules\rbac\search;
 
 use Yii;
 use yii\base\Model;

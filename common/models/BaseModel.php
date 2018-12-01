@@ -39,13 +39,13 @@ class BaseModel extends \yii\db\ActiveRecord {
         return false;
     }
 
-    public static function getStatusText($type = null) {
-        $array = [self::STATUS_ACTIVE => Yii::t('app', 'Normal'), self::STATUS_DELETED => Yii::t('app', 'Invalid')];
+    public static function getStatusText($type = null, $data = null) {
+        $array = $data ?: [self::STATUS_ACTIVE => Yii::t('app', 'Normal'), self::STATUS_DELETED => Yii::t('app', 'Invalid')];
         return self::getCommonStatus($array, $type);
     }
 
-    public static function getStatusIcon($type = null) {
-        $array = [
+    public static function getStatusIcon($type = null, $data = null) {
+        $array = $data ?: [
             self::STATUS_ACTIVE => [Yii::t('app', 'Normal'), 'check-circle', 'text-success'],
             self::STATUS_DELETED => [Yii::t('app', 'Invalid'), 'times-circle', 'text-danger']
         ];
@@ -118,6 +118,35 @@ class BaseModel extends \yii\db\ActiveRecord {
         }
 
         return $default_value;
+    }
+
+    /**
+     * 格式化树形数组
+     * @param type $data 输入二位数组
+     * @param type $config 字段映射配置
+     * @return type
+     */
+    public static function getTree($data) {
+        //解决下标不是1开始的问题
+        $items = [];
+        foreach ($data as $value) {
+            $items[$value['id']] = $value;
+        }
+
+        //开始组装
+        $tree = [];
+        foreach ($items as $key => $item) {
+            if ($item['pid'] == 0) { //为0，则为1级分类
+                $tree[] = &$items[$key];
+            } else {
+                if (isset($items[$item['pid']])) { //存在值则为二级分类
+                    $items[$item['pid']]['sub'][] = &$items[$key]; //传引用直接赋值与改变
+                } else {
+                    $tree[] = &$items[$key]; //至少三级分类 由于是传引用思想，这里将不会有值
+                }
+            }
+        }
+        return $tree;
     }
 
     public static function getCache($name) {

@@ -5,11 +5,11 @@ use yii\helpers\Json;
 use yii\helpers\Url;
 
 $title = Yii::t('app', 'System user');
-$label = Yii::t('app', 'Assign');
-$this->title = $title . ' - ' . $label;
-$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['user/user/index']];
+$label = Yii::t('app/rbac', 'Assign authority');
+$this->title = $title . ' - ' . $label . ' - ' . $model->username;
+$this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['/user/user/index']];
 $this->params['breadcrumbs'][] = $label;
-
+$this->params['breadcrumbs'][] = $model->username;
 $animateIcon = ' <i class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>';
 $opts = Json::htmlEncode(['items' => $model->getItems()]);
 $this->registerJs('var _opts = ' . $opts . ';');
@@ -17,7 +17,7 @@ $this->registerJs($this->render('_script.js'));
 ?>
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title"><?= $this->title ?> <?= $model->username ?></h3>
+        <h3 class="box-title"><?= $label ?></h3>
     </div>
     <div class="box-body">
         <div class="row">

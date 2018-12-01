@@ -9,7 +9,6 @@ use yii\web\Response;
 use common\models\User;
 use backend\controllers\BackendBaseController;
 use backend\modules\rbac\models\Assignment;
-use backend\modules\rbac\models\search\AssignmentSearch;
 
 class AssignmentController extends BackendBaseController {
 

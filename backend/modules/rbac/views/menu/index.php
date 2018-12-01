@@ -1,18 +1,17 @@
 <?php
 
 use yii\widgets\Pjax;
-use common\models\User;
-use common\extensions\Util;
 use common\extensions\Btn;
+use common\models\AuthMenu;
 use backend\widgets\GridView;
 use backend\widgets\SearchForm;
 
-$title = Yii::t('app', 'System user');
+$title = Yii::t('app/rbac', 'Menus');
 $label = Yii::t('app', 'List');
 $this->title = $title . ' - ' . $label;
 $this->params['breadcrumbs'][] = ['label' => $title, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $label;
-$keyword = User::getSearchParams('keyword');
+$keyword = AuthMenu::getSearchParams('keyword');
 ?>
 <div class="row">
     <div class="col-xs-12">
@@ -26,7 +25,8 @@ $keyword = User::getSearchParams('keyword');
             <div class="box-body">
                 <?php $form = SearchForm::begin(); ?>
                 <?= $form->selectPagesize($searchModel) ?>
-                <?= $form->selectStatus($searchModel) ?>
+                <?= $form->dropDownList('pid', $searchModel, AuthMenu::formatDropDownList()) ?>
+                <?= $form->selectStatus($searchModel, Yii::t('app/rbac', 'Display State')) ?>
                 <?= $form->searchKeyword($searchModel) ?>
                 <?= Btn::resetButton() ?>
                 <?= Btn::searchSubmitButton() ?>
@@ -49,42 +49,31 @@ $keyword = User::getSearchParams('keyword');
                             'attribute' => 'id'
                         ],
                         [
-                            'attribute' => 'username',
+                            'attribute' => 'name',
                             'format' => 'raw',
                             'value' => function($model) use($keyword) {
-                                return $keyword ? Util::highlight($keyword, $model->username) : $model->username;
+                                return $keyword ? Util::highlight($keyword, $model->name) : $model->name;
                             }
                         ],
                         [
-                            'attribute' => 'email',
+                            'attribute' => 'route',
                             'format' => 'raw',
                             'value' => function($model) use($keyword) {
-                                return $keyword ? Util::highlight($keyword, $model->email) : $model->email;
+                                return $keyword ? Util::highlight($keyword, $model->route) : $model->route;
                             }
                         ],
+                        'order',
                         [
                             'attribute' => 'status',
                             'format' => 'raw',
                             'value' => function($model) {
-                                return User::getStatusIcon($model->status);
+                                return AuthMenu::getStatusIcon($model->status);
                             },
-                        ],
-                        [
-                            'attribute' => 'created_at',
-                            'format' => ['date', 'php:Y-m-d H:i:s']
                         ],
                         [
                             'class' => 'backend\widgets\ActionColumn',
                             'header' => Yii::t('app', 'Operation'),
                             'template' => '{delete} {update} {view}',
-                            'visibleButtons' => [
-                                'update' => function ($model) {
-                                    return !User::checkSuperUser($model->id);
-                                },
-                                'delete' => function ($model) {
-                                    return !User::checkSuperUser($model->id);
-                                },
-                            ]
                         ],
                     ],
                 ]);
